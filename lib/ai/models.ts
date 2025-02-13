@@ -7,7 +7,7 @@ import {
   wrapLanguageModel,
 } from 'ai';
 
-export const DEFAULT_CHAT_MODEL: string = 'Deepseek-R1-Distilled-Llama-70B';
+export const DEFAULT_CHAT_MODEL: string = 'llama-3.3-70b-versatile';
 
 export const myProvider = customProvider({
   languageModels: {
