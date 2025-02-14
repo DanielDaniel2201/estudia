@@ -16,24 +16,24 @@ interface SuggestedActionsProps {
 function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
   const suggestedActions = [
     {
-      title: 'What are the advantages',
-      label: 'of using Next.js?',
-      action: 'What are the advantages of using Next.js?',
+      title: 'Ayúdame a escribir un artículo',
+      label: 'sobre inteligencia artificial.',
+      action: 'Ayúdame a escribir un artículo sobre inteligencia artificial.',
     },
     {
-      title: 'Write code to',
-      label: `demonstrate djikstra's algorithm`,
-      action: `Write code to demonstrate djikstra's algorithm`,
+      title: 'Cuéntame sobre la novela',
+      label: `Don Quijote`,
+      action: `Cuéntame sobre la novela Don Quijote.`,
     },
     {
-      title: 'Help me write an essay',
-      label: `about silicon valley`,
-      action: `Help me write an essay about silicon valley`,
+      title: 'Dame algunos ejemplos',
+      label: `de arrepentirse`,
+      action: `Dame algunos ejemplos de arrepentirse.`,
     },
     {
-      title: 'What is the weather',
-      label: 'in San Francisco?',
-      action: 'What is the weather in San Francisco?',
+      title: 'Cómo se conjuga el verbo oler',
+      label: 'según la RAE',
+      action: 'Cómo se conjuga el verbo oler según la RAE.',
     },
   ];
 

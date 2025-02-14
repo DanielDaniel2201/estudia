@@ -11,21 +11,25 @@ export const DEFAULT_CHAT_MODEL: string = 'llama-3.3-70b-versatile';
 
 export const myProvider = customProvider({
   languageModels: {
-    // 'chat-model-small': openai('gpt-4o-mini'),
-    // 'chat-model-large': openai('gpt-4o'),
-    // 'chat-model-reasoning': wrapLanguageModel({
-    //   model: fireworks('accounts/fireworks/models/deepseek-r1'),
-    //   middleware: extractReasoningMiddleware({ tagName: 'think' }),
-    // }),
-    // 'title-model': openai('gpt-4-turbo'),
-    // 'block-model': openai('gpt-4o-mini'),
-    'chat-model-reasoning': wrapLanguageModel({
+    // reasoning models:
+    'deepseek-r1-distill-llama-70b': wrapLanguageModel({
       model: groq('deepseek-r1-distill-llama-70b'),
       middleware: extractReasoningMiddleware({ tagName: 'think' }),
     }),
-    'title-model': groq('llama-3.3-70b-versatile'),
-    'block-model': groq('llama-3.3-70b-versatile'),
+    'deepseek-r1-distill-qwen-32b': wrapLanguageModel({
+      model: groq('deepseek-r1-distill-qwen-32b'),
+      middleware: extractReasoningMiddleware({ tagName: 'think' }),
+    }),
+
+    // chat models
     'llama-3.3-70b-versatile': groq('llama-3.3-70b-versatile'),
+    'qwen-2.5-32b': groq('qwen-2.5-32b'),
+    'llama-3.1-8b-instant': groq('llama-3.1-8b-instant'),
+    'mixtral-8x7b-32768': groq('mixtral-8x7b-32768'),
+
+    // util models
+    'title-model': groq('qwen-2.5-32b'),
+    'block-model': groq('mixtral-8x7b-32768'),
   },
   // imageModels: {
   //   'small-model': openai.image('dall-e-2'),
@@ -43,11 +47,31 @@ export const chatModels: Array<ChatModel> = [
   {
     id: 'llama-3.3-70b-versatile',
     name: 'llama-3.3-70b-versatile',
-    description: 'Small model for fast, lightweight tasks',
+    description: 'Versatile model for fast, general-purpose tasks.',
   },
   {
-    id: 'chat-model-reasoning',
+    id: 'deepseek-r1-distill-llama-70b',
     name: 'deepseek-r1-distill-llama-70b',
-    description: 'Uses advanced reasoning',
+    description: 'Optimized for advanced reasoning and analysis',
+  },
+  {
+    id: 'deepseek-r1-distill-qwen-32b',
+    name: 'deepseek-r1-distill-qwen-32b',
+    description: 'Efficient model for logic and problem-solving',
+  },
+  {
+    id: 'qwen-2.5-32b',
+    name: 'qwen-2.5-32b',
+    description: 'Optimized for chat and dialogue tasks',
+  },
+  {
+    id: 'llama-3.1-8b-instant',
+    name: 'llama-3.1-8b-instant',
+    description: 'Fast and efficient 8B parameter model',
+  },
+  {
+    id: 'mixtral-8x7b-32768',
+    name: 'mixtral-8x7b-32768',
+    description: 'Powerful mixture of experts model',
   },
 ];
