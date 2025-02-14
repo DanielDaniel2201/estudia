@@ -1,5 +1,3 @@
-import { openai } from '@ai-sdk/openai';
-import { fireworks } from '@ai-sdk/fireworks';
 import { groq } from '@ai-sdk/groq'
 import {
   customProvider,
@@ -7,7 +5,7 @@ import {
   wrapLanguageModel,
 } from 'ai';
 
-export const DEFAULT_CHAT_MODEL: string = 'llama-3.3-70b-versatile';
+export const DEFAULT_CHAT_MODEL: string = 'deepseek-r1-distill-qwen-32b';
 
 export const myProvider = customProvider({
   languageModels: {
@@ -31,10 +29,6 @@ export const myProvider = customProvider({
     'title-model': groq('qwen-2.5-32b'),
     'block-model': groq('mixtral-8x7b-32768'),
   },
-  // imageModels: {
-  //   'small-model': openai.image('dall-e-2'),
-  //   'large-model': openai.image('dall-e-3'),
-  // },
 });
 
 interface ChatModel {
@@ -44,34 +38,34 @@ interface ChatModel {
 }
 
 export const chatModels: Array<ChatModel> = [
+  // {
+  //   id: 'llama-3.3-70b-versatile',
+  //   name: 'llama-3.3-70b-versatile',
+  //   description: 'Versatile model for fast, general-purpose tasks.',
+  // },
   {
-    id: 'llama-3.3-70b-versatile',
-    name: 'llama-3.3-70b-versatile',
-    description: 'Versatile model for fast, general-purpose tasks.',
+    id: 'deepseek-r1-distill-qwen-32b',
+    name: 'deepseek-r1-distill-qwen-32b',
+    description: 'For communication in Chinese',
   },
   {
     id: 'deepseek-r1-distill-llama-70b',
     name: 'deepseek-r1-distill-llama-70b',
-    description: 'Optimized for advanced reasoning and analysis',
+    description: 'For communication in languages other than Chinese',
   },
-  {
-    id: 'deepseek-r1-distill-qwen-32b',
-    name: 'deepseek-r1-distill-qwen-32b',
-    description: 'Efficient model for logic and problem-solving',
-  },
-  {
-    id: 'qwen-2.5-32b',
-    name: 'qwen-2.5-32b',
-    description: 'Optimized for chat and dialogue tasks',
-  },
-  {
-    id: 'llama-3.1-8b-instant',
-    name: 'llama-3.1-8b-instant',
-    description: 'Fast and efficient 8B parameter model',
-  },
-  {
-    id: 'mixtral-8x7b-32768',
-    name: 'mixtral-8x7b-32768',
-    description: 'Powerful mixture of experts model',
-  },
+  // {
+  //   id: 'qwen-2.5-32b',
+  //   name: 'qwen-2.5-32b',
+  //   description: 'Optimized for chat and dialogue tasks',
+  // },
+  // {
+  //   id: 'llama-3.1-8b-instant',
+  //   name: 'llama-3.1-8b-instant',
+  //   description: 'Fast and efficient 8B parameter model',
+  // },
+  // {
+  //   id: 'mixtral-8x7b-32768',
+  //   name: 'mixtral-8x7b-32768',
+  //   description: 'Powerful mixture of experts model',
+  // },
 ];

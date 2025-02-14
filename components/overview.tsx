@@ -17,17 +17,6 @@ export const Overview = () => {
         <p className="text-4xl font-normal">
           ¿Cómo puedo ayudarte a aprender <span className="font-extrabold">español</span> hoy?
         </p>
-        {/* <p>
-          You can learn more about the AI SDK by visiting the{' '}
-          <Link
-            className="font-medium underline underline-offset-4"
-            href="https://sdk.vercel.ai/docs"
-            target="_blank"
-          >
-            docs
-          </Link>
-          .
-        </p> */}
       </div>
     </motion.div>
   );
