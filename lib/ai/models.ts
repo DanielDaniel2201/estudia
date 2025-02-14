@@ -47,7 +47,7 @@ export const chatModels: Array<ChatModel> = [
   },
   {
     id: 'chat-model-reasoning',
-    name: 'Reasoning model',
+    name: 'deepseek-r1-distill-llama-70b',
     description: 'Uses advanced reasoning',
   },
 ];
