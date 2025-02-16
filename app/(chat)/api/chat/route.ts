@@ -20,7 +20,7 @@ import {
   sanitizeResponseMessages,
 } from '@/lib/utils';
 
-import { generateTitleFromUserMessage } from '../../actions';
+import { generateTitleFromUserMessage, identifyIsWordQuery } from '../../actions';
 import { createDocument } from '@/lib/ai/tools/create-document';
 import { updateDocument } from '@/lib/ai/tools/update-document';
 import { requestSuggestions } from '@/lib/ai/tools/request-suggestions';
@@ -55,6 +55,8 @@ export async function POST(request: Request) {
     await saveChat({ id, userId: session.user.id, title });
   }
 
+  const contextInfo = await identifyIsWordQuery({ message: userMessage });
+  
   await saveMessages({
     messages: [{ ...userMessage, createdAt: new Date(), chatId: id }],
   });
@@ -63,7 +65,7 @@ export async function POST(request: Request) {
     execute: (dataStream) => {
       const result = streamText({
         model: myProvider.languageModel(selectedChatModel),
-        system: systemPrompt({ selectedChatModel }),
+        system: `${systemPrompt()} \n Context: ${contextInfo}`,
         messages,
         maxSteps: 5,
         experimental_activeTools:

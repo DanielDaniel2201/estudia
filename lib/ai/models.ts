@@ -49,6 +49,7 @@ export const myProvider = customProvider({
     // util models
     'title-model': groq('qwen-2.5-32b'),
     'block-model': groq('mixtral-8x7b-32768'),
+    'identify-is-word-query': groq('qwen-2.5-32b'),
   },
 });
 
