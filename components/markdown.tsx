@@ -3,10 +3,13 @@ import React, { memo } from 'react';
 import ReactMarkdown, { type Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { CodeBlock } from './code-block';
+import { SpanishSentence } from './spanish-sentence'
+import rehypeRaw from 'rehype-raw';
 
 const components: Partial<Components> = {
   // @ts-expect-error
   code: CodeBlock,
+  'spanish-sentence': SpanishSentence,
   pre: ({ children }) => <>{children}</>,
   ol: ({ node, children, ...props }) => {
     return (
@@ -97,7 +100,7 @@ const remarkPlugins = [remarkGfm];
 
 const NonMemoizedMarkdown = ({ children }: { children: string }) => {
   return (
-    <ReactMarkdown remarkPlugins={remarkPlugins} components={components}>
+    <ReactMarkdown remarkPlugins={remarkPlugins} components={components} rehypePlugins={[rehypeRaw]}>
       {children}
     </ReactMarkdown>
   );
