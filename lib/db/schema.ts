@@ -12,6 +12,11 @@ import {
 } from 'drizzle-orm/pg-core';
 import { blockKinds } from '../blocks/server';
 
+export const audios = pgTable('audios', {
+  content: varchar('content', { length: 256}).notNull(),
+  audio_url: text('audio_url').notNull(),
+})
+
 export const user = pgTable('User', {
   id: uuid('id').primaryKey().notNull().defaultRandom(),
   email: varchar('email', { length: 64 }).notNull(),

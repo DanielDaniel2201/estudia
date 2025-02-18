@@ -15,6 +15,7 @@ import {
   type Message,
   message,
   vote,
+  audios,
 } from './schema';
 import { BlockKind } from '@/components/block';
 
@@ -25,6 +26,33 @@ import { BlockKind } from '@/components/block';
 // biome-ignore lint: Forbidden non-null assertion.
 const client = postgres(process.env.POSTGRES_URL!);
 const db = drizzle(client);
+
+export async function getAudioUrl(content: string) {
+  try {
+    return await db.select().from(audios).where(eq(audios.content, content)).limit(1);
+  } catch (error) {
+    console.error('Failed to get audios from database');
+    throw error;
+  }
+}
+
+export async function saveAudioUrl({
+  content,
+  audio_url,
+}: {
+  content: string;
+  audio_url: string;
+}) {
+  try {
+    return await db.insert(audios).values({
+      content,
+      audio_url,
+    });
+  } catch (error) {
+    console.error('Failed to save audio content and url to database');
+    throw error;
+  }
+}
 
 export async function getUser(email: string): Promise<Array<User>> {
   try {

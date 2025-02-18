@@ -1,7 +1,7 @@
 'use client'
 import { Button } from '@/components/ui/button';
 import { PlayIcon } from 'lucide-react';
-import { generateSpeech } from '@/lib/tts/tts';
+import { getAudio } from '@/lib/tts/tts';
 
 export function SpanishSentence({ children }: {
   children: React.ReactNode
@@ -14,8 +14,16 @@ export function SpanishSentence({ children }: {
       <Button
         variant="outline"
         className="order-2 md:order-1 md:px-2 py-2 md:h-fit ml-auto md:ml-0 text-lg"
-        onClick={() => {
-          generateSpeech(children as string)
+        onClick={async () => {
+          const url = await getAudio(children as string);
+          const audio = new Audio(url);
+          audio.play()
+            .then(() => {
+              console.log('Audio is playing');
+            })
+            .catch((error) => {
+              console.error('Failed to play audio:', error);
+            });
         }}
       >
         <PlayIcon size={5} />
