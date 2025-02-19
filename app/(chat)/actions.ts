@@ -50,18 +50,22 @@ export async function identifyIsWordQuery({
     1. 输入：我想知道“OLER”这个词是什么意思？  
       输出：oler 
 
-    2. 输入：我想你怎么说？  
+    2. 输入：我想你怎么说？
       输出：extrañar
 
-    3. 输入：我好累。  
-      输出：cansado  
+    3. 输入：aliuota什么意思。  
+      输出：alícuota
+
+    4. 输入：manana什么意思
+       输出：mañana
 
     **输出要求**：  
     - 直接返回单词，不带任何额外说明或符号。  
-    - 如果输入中没有明确的单词或情境无法推断出相关单词，可以返回“0”。`,
+    - 如果用户提供的西班牙语单词拼写不准确，一定要返回修改正确的单词，比如用户问buho，你要返回búho
+    - 如果输入中没有明确的单词或情境无法推断出相关单词，可以返回"0"。`,
     prompt: JSON.stringify(message),
   });
-
+  console.log(word);
   if (word === "0") {
     return ''
   }

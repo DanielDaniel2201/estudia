@@ -34,6 +34,7 @@ async function generateAudio(content: string): Promise<string> {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const resultUrl = await response.json();
+    console.log(`Remaining number of characters available for synthesis: ${resultUrl.remainingCharacterCount}`);
     return resultUrl.audioFile;
   } catch (error) {
     console.error("Error generating speech:", error);
@@ -54,7 +55,6 @@ export async function getAudio(content: string): Promise<string> {
     // generating the audio for the 1st time and storing it
   } else {
     const url = await generateAudio(content);
-    console.log(url);
     saveAudioUrl({content: content, audio_url: url})
     return url as string;
   }
