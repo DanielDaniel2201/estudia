@@ -8,7 +8,7 @@ import {
 } from 'ai';
 import { wrap } from 'module';
 
-export const DEFAULT_CHAT_MODEL: string = 'gemini-2.0-flash';
+export const DEFAULT_CHAT_MODEL: string = 'gemini-2.0-pro';
 
 const openrouter = createOpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY
@@ -30,8 +30,9 @@ export const myProvider = customProvider({
       middleware: extractReasoningMiddleware({ tagName: 'think' })
     }),
     // 'gemini-2.0-flash-thinking-exp': wrapLanguageModel({
-      // middleware: extractReasoningMiddleware({ tagName: 'think' })
-      // }),
+    //   model: google('gemini-2.0-flash-thinking-exp-01-21'),
+    //   middleware: extractReasoningMiddleware({ tagName: 'think' })
+    // }),
       
       // chat models
       'llama-3.3-70b-versatile': groq('llama-3.3-70b-versatile'),
@@ -71,6 +72,11 @@ export const chatModels: Array<ChatModel> = [
   //   description: 'gemini from google through openrouter'
   // },
   {
+    id: 'qwen-2.5-32b',
+    name: 'qwen-2.5-32b',
+    description: '',
+  },
+  {
     id: 'gemini-2.0-flash',
     name: 'gemini-2.0-flash',
     description: ''
@@ -78,13 +84,19 @@ export const chatModels: Array<ChatModel> = [
   // {
   //   id: 'deepseek-v3',
   //   name: 'deepseek-v3',
-  //   description: 'powerful chat model, may suffer latency'
+  //   description: 'free version, may suffer severe latency'
   // },
   {
     id: 'gemini-2.0-pro',
     name: 'gemini-2.0-pro',
-    description: 'may suffer from rate limit'
+    description: 'pro version, may suffer from rate limit'
   },
+
+  // {
+  //   id: 'gemini-2.0-flash-thinking-exp',
+  //   name: 'gemini-2.0-flash-thinking-exp',
+  //   description: ''
+  // }
   // {
   //   id: 'llama-3.3-70b-versatile',
   //   name: 'llama-3.3-70b-versatile',
@@ -99,11 +111,6 @@ export const chatModels: Array<ChatModel> = [
   //   id: 'deepseek-r1-distill-llama-70b',
   //   name: 'deepseek-r1-distill-llama-70b',
   //   description: 'For communication in languages other than Chinese',
-  // },
-  // {
-  //   id: 'qwen-2.5-32b',
-  //   name: 'qwen-2.5-32b',
-  //   description: 'Optimized for chat and dialogue tasks',
   // },
   // {
   //   id: 'llama-3.1-8b-instant',
