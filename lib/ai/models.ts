@@ -45,6 +45,7 @@ export const myProvider = customProvider({
 
       'gemini-2.0-pro' : google('gemini-2.0-pro-exp-02-05'),
       'gemini-2.0-flash': google('gemini-2.0-flash'),
+      'learnlm-1.5': google('learnlm-1.5-pro-experimental'),
 
     // util models
     'title-model': google('gemini-2.0-flash-lite-preview-02-05'),
