@@ -45,8 +45,7 @@ async function generateAudio(content: string): Promise<string> {
 
 export async function getAudio(content: string): Promise<string> {
   // try to find if the url has been stored in the database to avoid regeneration
-  const audioUrl = getAudioUrl(content);
-  const data = await audioUrl;
+  const data = await getAudioUrl(content);
   
   // pre-generated url
   if (data.length > 0) {

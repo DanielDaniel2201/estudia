@@ -66,9 +66,14 @@ interface ChatModel {
 
 export const chatModels: Array<ChatModel> = [
   {
+    id: 'gemini-2.0-flash',
+    name: 'gemini-2.0-flash',
+    description: 'workhourse model with low latency'
+  },
+  {
     id: 'learnlm-1.5',
     name: 'learnlm-1.5',
-    description: 'Specifically aligned with learning science principle'
+    description: 'specifically aligned with learning science principles'
   },
   // {
   //   id: 'deepseek-r1',
@@ -83,12 +88,7 @@ export const chatModels: Array<ChatModel> = [
   {
     id: 'qwen-2.5-32b',
     name: 'qwen-2.5-32b',
-    description: '',
-  },
-  {
-    id: 'gemini-2.0-flash',
-    name: 'gemini-2.0-flash',
-    description: ''
+    description: 'general-purpose chat model',
   },
   // {
   //   id: 'deepseek-v3',
@@ -98,7 +98,7 @@ export const chatModels: Array<ChatModel> = [
   {
     id: 'gemini-2.0-pro',
     name: 'gemini-2.0-pro',
-    description: 'pro version, may suffer from rate limit'
+    description: 'powerfull for complex tasks, may suffer from rate limit'
   },
 
   // {

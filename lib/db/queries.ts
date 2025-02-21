@@ -41,9 +41,20 @@ export async function createUserEval(userId: string) {
     return await db.insert(userEval).values({
       userId,
       evaluation: "",
-    })
+    });
   } catch (error) {
     console.error('Failed to create initial user evaluation');
+  }
+}
+
+export async function saveUserEval(userId: string, userEvaluation: string) {
+  try {
+    return await db.insert(userEval).values({
+      userId,
+      evaluation: userEvaluation,
+    });
+  } catch (error) {
+    console.error(`Failed to save user evaluation for ${userId}.`)
   }
 }
 

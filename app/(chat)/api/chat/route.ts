@@ -22,12 +22,13 @@ import {
   sanitizeResponseMessages,
 } from '@/lib/utils';
 
-import { generateTitleFromUserMessage, identifyIsWordQuery } from '../../actions';
+import { generateTitleFromUserMessage, identifyIsWordQuery, userEval } from '../../actions';
 import { createDocument } from '@/lib/ai/tools/create-document';
 import { updateDocument } from '@/lib/ai/tools/update-document';
 import { requestSuggestions } from '@/lib/ai/tools/request-suggestions';
 import { getWeather } from '@/lib/ai/tools/get-weather';
 import { use } from 'react';
+import { addUserMsg, getUserMsgs, usersMessages } from '@/lib/db/userEvalMap';
 
 export const maxDuration = 60;
 
@@ -43,12 +44,6 @@ export async function POST(request: Request) {
   
   if (!session || !session.user || !session.user.id) {
     return new Response('Unauthorized', { status: 401 });
-  }
-
-  if ((await getUserEval(session.user.id))?.length === 0) {
-    console.log(`user ${session.user.email} has no evaluation`);
-    createUserEval(session.user.id);
-    console.log(`succesfully created user evaluation for ${session.user.email}`)
   }
 
   const userMessage = getMostRecentUserMessage(messages);
@@ -69,6 +64,12 @@ export async function POST(request: Request) {
   await saveMessages({
     messages: [{ ...userMessage, createdAt: new Date(), chatId: id }],
   });
+
+  const cacheMsgCnt = await addUserMsg(session.user.id, userMessage.content);
+  if (cacheMsgCnt >= 10) {
+    const userMsgConcat = await getUserMsgs(session.user.id);
+    userEval(session.user.id, userMsgConcat);
+  }
 
   return createDataStreamResponse({
     execute: (dataStream) => {
