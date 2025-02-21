@@ -25,20 +25,28 @@ export const user = pgTable('User', {
   password: varchar('password', { length: 64 }),
 });
 
-export const userLevelEmbed = pgTable('userLevelEmbed', {
-  id: uuid('id').primaryKey().notNull().defaultRandom(),
+// export const userLevelEmbed = pgTable('userLevelEmbed', {
+//   id: uuid('id').primaryKey().notNull().defaultRandom(),
+//   userId: uuid('userId')
+//     .notNull()
+//     .references(() => user.id, { onDelete: 'cascade' }),
+//   embedding: vector('embedding', { dimensions: 1536 }).notNull(),
+// },
+//   table => ({
+//     embeddingIndex: index('user_embedding_idx').using(
+//       'hnsw',
+//       table.embedding.op('vector_cosine_ops'),
+//     ),
+//   }),
+// );
+
+export const userEval = pgTable('userEval', {
   userId: uuid('userId')
+    .primaryKey()
     .notNull()
-    .references(() => user.id, { onDelete: 'cascade' }),
-  embedding: vector('embedding', { dimensions: 1536 }).notNull(),
-},
-  table => ({
-    embeddingIndex: index('user_embedding_idx').using(
-      'hnsw',
-      table.embedding.op('vector_cosine_ops'),
-    ),
-  }),
-);
+    .references(() => user.id, { onDelete: 'cascade'}),
+  evaluation: text('evaluation').notNull(),
+})
 
 export type User = InferSelectModel<typeof user>;
 

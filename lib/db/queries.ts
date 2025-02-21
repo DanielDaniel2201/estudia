@@ -16,7 +16,7 @@ import {
   message,
   vote,
   audios,
-  userLevelEmbed,
+  userEval
 } from './schema';
 import { BlockKind } from '@/components/block';
 
@@ -28,22 +28,22 @@ import { BlockKind } from '@/components/block';
 const client = postgres(process.env.POSTGRES_URL!);
 const db = drizzle(client);
 
-export async function getUserEmbed(userId: string) {
+export async function getUserEval(userId: string) {
   try {
-    return await db.select().from(userLevelEmbed).where(eq(userLevelEmbed.userId, userId));
+    return await db.select().from(userEval).where(eq(userEval.userId, userId));
   } catch (error) {
-    console.error('Failed to get user embeddings from database');
+    console.error('Failed to get user evalutaion from database');
   }
 }
 
-export async function createUserEmbed(userId: string) {
+export async function createUserEval(userId: string) {
   try {
-    return await db.insert(userLevelEmbed).values({
+    return await db.insert(userEval).values({
       userId,
-      embedding: Array(768).fill(0.0),
+      evaluation: "",
     })
   } catch (error) {
-    console.error(`Failed to create user embedding for ${userId}`);
+    console.error('Failed to create initial user evaluation');
   }
 }
 

@@ -9,10 +9,10 @@ import { auth } from '@/app/(auth)/auth';
 import { myProvider } from '@/lib/ai/models';
 import { systemPrompt } from '@/lib/ai/prompts';
 import {
-  createUserEmbed,
+  createUserEval,
   deleteChatById,
   getChatById,
-  getUserEmbed,
+  getUserEval,
   saveChat,
   saveMessages,
 } from '@/lib/db/queries';
@@ -45,17 +45,14 @@ export async function POST(request: Request) {
     return new Response('Unauthorized', { status: 401 });
   }
 
-  if ((await getUserEmbed(session.user.id))?.length === 0) {
-    createUserEmbed(session.user.id);
-    console.log(`succesfully created user embedding for ${session.user.email}`)
+  if ((await getUserEval(session.user.id))?.length === 0) {
+    console.log(`user ${session.user.email} has no evaluation`);
+    createUserEval(session.user.id);
+    console.log(`succesfully created user evaluation for ${session.user.email}`)
   }
-
-  const embedModel = myProvider.textEmbeddingModel("text-embedding");
 
   const userMessage = getMostRecentUserMessage(messages);
   
-  const embeds = (await embedModel.doEmbed({values: [userMessage?.content!]})).embeddings[0];
-
   if (!userMessage) {
     return new Response('No user message found', { status: 400 });
   }
