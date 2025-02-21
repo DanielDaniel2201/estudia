@@ -46,12 +46,14 @@ export const myProvider = customProvider({
       'gemini-2.0-pro' : google('gemini-2.0-pro-exp-02-05'),
       'gemini-2.0-flash': google('gemini-2.0-flash'),
 
-
     // util models
     'title-model': groq('qwen-2.5-32b'),
     'block-model': groq('mixtral-8x7b-32768'),
     'identify-is-word-query': groq('qwen-2.5-32b'),
   },
+  textEmbeddingModels: {
+    'text-embedding': google.textEmbeddingModel('text-embedding-004'),
+  }
 });
 
 interface ChatModel {

@@ -9,8 +9,10 @@ import { auth } from '@/app/(auth)/auth';
 import { myProvider } from '@/lib/ai/models';
 import { systemPrompt } from '@/lib/ai/prompts';
 import {
+  createUserEmbed,
   deleteChatById,
   getChatById,
+  getUserEmbed,
   saveChat,
   saveMessages,
 } from '@/lib/db/queries';
@@ -25,6 +27,7 @@ import { createDocument } from '@/lib/ai/tools/create-document';
 import { updateDocument } from '@/lib/ai/tools/update-document';
 import { requestSuggestions } from '@/lib/ai/tools/request-suggestions';
 import { getWeather } from '@/lib/ai/tools/get-weather';
+import { use } from 'react';
 
 export const maxDuration = 60;
 
@@ -37,12 +40,21 @@ export async function POST(request: Request) {
     await request.json();
 
   const session = await auth();
-
+  
   if (!session || !session.user || !session.user.id) {
     return new Response('Unauthorized', { status: 401 });
   }
 
+  if ((await getUserEmbed(session.user.id))?.length === 0) {
+    createUserEmbed(session.user.id);
+    console.log(`succesfully created user embedding for ${session.user.email}`)
+  }
+
+  const embedModel = myProvider.textEmbeddingModel("text-embedding");
+
   const userMessage = getMostRecentUserMessage(messages);
+  
+  const embeds = (await embedModel.doEmbed({values: [userMessage?.content!]})).embeddings[0];
 
   if (!userMessage) {
     return new Response('No user message found', { status: 400 });

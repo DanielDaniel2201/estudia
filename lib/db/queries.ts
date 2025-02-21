@@ -16,6 +16,7 @@ import {
   message,
   vote,
   audios,
+  userLevelEmbed,
 } from './schema';
 import { BlockKind } from '@/components/block';
 
@@ -26,6 +27,25 @@ import { BlockKind } from '@/components/block';
 // biome-ignore lint: Forbidden non-null assertion.
 const client = postgres(process.env.POSTGRES_URL!);
 const db = drizzle(client);
+
+export async function getUserEmbed(userId: string) {
+  try {
+    return await db.select().from(userLevelEmbed).where(eq(userLevelEmbed.userId, userId));
+  } catch (error) {
+    console.error('Failed to get user embeddings from database');
+  }
+}
+
+export async function createUserEmbed(userId: string) {
+  try {
+    return await db.insert(userLevelEmbed).values({
+      userId,
+      embedding: Array(768).fill(0.0),
+    })
+  } catch (error) {
+    console.error(`Failed to create user embedding for ${userId}`);
+  }
+}
 
 export async function getAudioUrl(content: string) {
   try {

@@ -47,7 +47,7 @@ export async function identifyIsWordQuery({
     - 如果用户用中文描述了一个情境或问题，根据上下文推断出最相关的西班牙语单词并返回。  
 
     **输入输出示例**：  
-    1. 输入：我想知道“OLER”这个词是什么意思？  
+    1. 输入：我想知道“OLeR”这个词是什么意思？  
       输出：oler 
 
     2. 输入：我想你怎么说？
@@ -60,21 +60,20 @@ export async function identifyIsWordQuery({
        输出：mañana
 
     **输出要求**：  
-    - 直接返回单词，不带任何额外说明或符号。  
+    - 直接输出西班牙语单词，不带任何额外说明、符号或思考过程。  
     - 如果用户提供的西班牙语单词拼写不准确，一定要返回修改正确的单词，比如用户问buho，你要返回búho
     - 如果输入中没有明确的单词或情境无法推断出相关单词，可以返回"0"。`,
     prompt: JSON.stringify(message),
   });
-  console.log(word);
-  if (word === "0") {
+  if (/^[a-záéíóúüñ\s]+$/i.test(word)) {
+    const response = await fetch(`https://rae-api.com/api/words/${word.toLowerCase()}`);
+    if (response.ok) {
+      const data = await response.json();
+      return JSON.stringify(data, null, 2);
+    }
     return ''
   }
-  const response = await fetch(`https://rae-api.com/api/words/${word.toLowerCase()}`);
-  if (response.ok) {
-    const data = await response.json();
-    return JSON.stringify(data, null, 2);
-  }
-  return ''
+  return '';
 }
 
 export async function deleteTrailingMessages({ id }: { id: string }) {

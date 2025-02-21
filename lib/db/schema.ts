@@ -9,6 +9,8 @@ import {
   primaryKey,
   foreignKey,
   boolean,
+  vector,
+  index,
 } from 'drizzle-orm/pg-core';
 import { blockKinds } from '../blocks/server';
 
@@ -22,6 +24,21 @@ export const user = pgTable('User', {
   email: varchar('email', { length: 64 }).notNull(),
   password: varchar('password', { length: 64 }),
 });
+
+export const userLevelEmbed = pgTable('userLevelEmbed', {
+  id: uuid('id').primaryKey().notNull().defaultRandom(),
+  userId: uuid('userId')
+    .notNull()
+    .references(() => user.id, { onDelete: 'cascade' }),
+  embedding: vector('embedding', { dimensions: 1536 }).notNull(),
+},
+  table => ({
+    embeddingIndex: index('user_embedding_idx').using(
+      'hnsw',
+      table.embedding.op('vector_cosine_ops'),
+    ),
+  }),
+);
 
 export type User = InferSelectModel<typeof user>;
 
