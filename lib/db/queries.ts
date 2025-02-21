@@ -49,12 +49,12 @@ export async function createUserEval(userId: string) {
 
 export async function saveUserEval(userId: string, userEvaluation: string) {
   try {
-    return await db.insert(userEval).values({
-      userId,
-      evaluation: userEvaluation,
-    });
+    console.log('saving evals...');
+    return await db.update(userEval)
+      .set({ evaluation: userEvaluation})
+      .where(eq(userEval.userId, userId));
   } catch (error) {
-    console.error(`Failed to save user evaluation for ${userId}.`)
+    console.error(`Failed to save user evaluation for ${userId}.`);
   }
 }
 

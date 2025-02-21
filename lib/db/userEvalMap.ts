@@ -1,4 +1,4 @@
-export const usersMessages: { [userId: string]: string[] } = {};
+const usersMessages: { [userId: string]: string[] } = {};
 
 export async function addUserMsg(userId: string, msg: string) {
   if (!usersMessages[userId]) {

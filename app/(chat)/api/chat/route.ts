@@ -28,7 +28,7 @@ import { updateDocument } from '@/lib/ai/tools/update-document';
 import { requestSuggestions } from '@/lib/ai/tools/request-suggestions';
 import { getWeather } from '@/lib/ai/tools/get-weather';
 import { use } from 'react';
-import { addUserMsg, getUserMsgs, usersMessages } from '@/lib/db/userEvalMap';
+import { addUserMsg, getUserMsgs } from '@/lib/db/userEvalMap';
 
 export const maxDuration = 60;
 
