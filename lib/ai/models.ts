@@ -47,9 +47,10 @@ export const myProvider = customProvider({
       'gemini-2.0-flash': google('gemini-2.0-flash'),
 
     // util models
-    'title-model': groq('qwen-2.5-32b'),
+    'title-model': google('gemini-2.0-flash-lite-preview-02-05'),
     'block-model': groq('mixtral-8x7b-32768'),
     'identify-is-word-query': groq('qwen-2.5-32b'),
+    'eval-model': google('learnlm-1.5-pro-experimental'),
   },
   textEmbeddingModels: {
     'text-embedding': google.textEmbeddingModel('text-embedding-004'),
@@ -63,6 +64,11 @@ interface ChatModel {
 }
 
 export const chatModels: Array<ChatModel> = [
+  {
+    id: 'learnlm-1.5',
+    name: 'learnlm-1.5',
+    description: 'Specifically aligned with learning science principle'
+  },
   // {
   //   id: 'deepseek-r1',
   //   name: 'deepseek-r1',
