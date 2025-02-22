@@ -17,9 +17,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { useRouter } from 'next/navigation';
 
 export function SidebarUserNav({ user }: { user: User }) {
   const { setTheme, theme } = useTheme();
+  const router = useRouter();
 
   return (
     <SidebarMenu>
@@ -60,6 +62,19 @@ export function SidebarUserNav({ user }: { user: User }) {
                 }}
               >
                 Sign out
+              </button>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <button
+                type="button"
+                className="w-full cursor-pointer"
+                onClick={() => {
+                  const userId = user.id;
+                  router.push(`/user/${userId}`);
+                }}
+              >
+                Profile
               </button>
             </DropdownMenuItem>
           </DropdownMenuContent>

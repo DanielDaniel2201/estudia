@@ -94,12 +94,21 @@ export async function getUser(email: string): Promise<Array<User>> {
   }
 }
 
+export async function getUserById(userId: string) {
+  try {
+    return await db.select().from(user).where(eq(user.id, userId));
+  } catch (error) {
+    console.error('Failed to get user by id')
+    throw error;
+  }
+}
+
 export async function createUser(email: string, password: string) {
   const salt = genSaltSync(10);
   const hash = hashSync(password, salt);
 
   try {
-    return await db.insert(user).values({ email, password: hash });
+    return await db.insert(user).values({ email, password: hash, avatar: `https://avatar.vercel.sh/${email}` });
   } catch (error) {
     console.error('Failed to create user in database');
     throw error;
