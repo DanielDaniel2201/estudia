@@ -15,6 +15,7 @@ import { Messages } from './messages';
 import { VisibilityType } from './visibility-selector';
 import { useBlockSelector } from '@/hooks/use-block';
 import { toast } from 'sonner';
+import ContactInfo from './chat-footer';
 
 export function Chat({
   id,
@@ -102,6 +103,7 @@ export function Chat({
             />
           )}
         </form>
+        <ContactInfo email='danieldaniel22012201@gmail.com' />
       </div>
 
       <Block
