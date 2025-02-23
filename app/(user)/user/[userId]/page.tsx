@@ -6,7 +6,6 @@ export default async function Page(props: { params: Promise<{ userId: string }> 
   const params = await props.params;
   const { userId } = params;
   const user = await getUserById(userId);
-  console.log(user[0].avatar);
   if (!user) {
     notFound();
   }
