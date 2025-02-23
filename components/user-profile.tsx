@@ -32,7 +32,6 @@ export default function UserProfile({ avatar, email, evaluation }: UserProfilePr
         </div>
       </CardContent>
       <Button
-        // onClick={() => window.history.back()}
         className="absolute bottom-4 left-2"
         variant="ghost"
       >
