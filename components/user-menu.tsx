@@ -23,30 +23,32 @@ export function UserMenu({
 } & React.ComponentProps<typeof Button>) {
   const { setTheme, theme } = useTheme();
   const router = useRouter();
-  console.log("&&&&&&&&&& user ");
-  console.log(user);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="
-          hover:bg-gray-100
-          data-[state=open]:bg-sidebar-accent
-          bg-background
-          data-[state=open]:text-sidebar-accent-foreground
-          h-10
-          border border-gray-200
-        ">
-          <Image
-            src={`https://avatar.vercel.sh/${user.email}`}
-            alt={user.email ?? 'User Avatar'}
-            width={30}
-            height={30}
-            className="rounded-full"
-          />
-          <span className="truncate text-black">{user?.email}</span>
-          <ChevronDownIcon />
-
-        </Button>
+      <Button className="
+    size-[34px]
+    rounded-full 
+    bg-background 
+    shadow-none 
+    border-none 
+    outline-none 
+    hover:bg-background 
+    active:bg-background 
+    focus:bg-background
+    p-0
+    flex items-center justify-center
+    hover:scale-105 // 悬停时放大
+    transition-transform duration-200 // 平滑过渡
+  ">
+  <Image
+    src={`https://avatar.vercel.sh/${user.email}`}
+    alt={user.email ?? 'User Avatar'}
+    width={34}
+    height={34}
+    className="rounded-full"
+  />
+</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         side="top"

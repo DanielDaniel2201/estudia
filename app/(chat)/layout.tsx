@@ -27,7 +27,7 @@ export default async function Layout({
           <AppSidebar user={session?.user} />
           <SidebarInset>{children}</SidebarInset>
         </SidebarProvider>
-        <div className="absolute top-2 right-3 z-50">
+        <div className="absolute top-4 right-5 z-50">
           {session?.user && (<UserMenu user={session?.user!} />)}
         </div>
       </div>
