@@ -19,6 +19,7 @@ import {
   userEval
 } from './schema';
 import { BlockKind } from '@/components/block';
+import { Redis } from "@upstash/redis";
 
 // Optionally, if not using email/pass login, you can
 // use the Drizzle adapter for Auth.js / NextAuth
@@ -27,6 +28,52 @@ import { BlockKind } from '@/components/block';
 // biome-ignore lint: Forbidden non-null assertion.
 const client = postgres(process.env.POSTGRES_URL!);
 const db = drizzle(client);
+
+export const redis = new Redis({
+  url: process.env.KV_REST_API_URL,
+  token: process.env.KV_REST_API_TOKEN, // 如果 Upstash 需要 token
+});
+
+// 工具函数：生成用户消息键名
+const getUserMessageKey = (userId: string) => `user:${userId}:messages`;
+
+// 消息操作接口
+export const UserMessage = {
+  // 添加消息
+  async add(userId: string, msg: string): Promise<number> {
+    try {
+      return await redis.rpush(getUserMessageKey(userId), msg);
+    } catch (err) {
+      console.error("添加消息失败:", err);
+      throw new Error("消息存储失败");
+    }
+  },
+
+  // 清空消息
+  async clear(userId: string): Promise<void> {
+    try {
+      await redis.del(getUserMessageKey(userId));
+    } catch (err) {
+      console.error("清空消息失败:", err);
+      throw new Error("消息清空失败");
+    }
+  },
+
+  // 获取消息
+  async getAll(userId: string): Promise<string> {
+    try {
+      const messages = await redis.lrange<string[]>(
+        getUserMessageKey(userId),
+        0,
+        -1
+      );
+      return messages?.join("; ") || ""; // 处理空值情况
+    } catch (err) {
+      console.error("获取消息失败:", err);
+      throw new Error("消息获取失败");
+    }
+  },
+};
 
 export async function getUserEval(userId: string) {
   try {
@@ -49,7 +96,6 @@ export async function createUserEval(userId: string) {
 
 export async function saveUserEval(userId: string, userEvaluation: string) {
   try {
-    console.log('saving evals...');
     return await db.update(userEval)
       .set({ evaluation: userEvaluation})
       .where(eq(userEval.userId, userId));

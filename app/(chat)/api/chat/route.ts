@@ -9,10 +9,9 @@ import { auth } from '@/app/(auth)/auth';
 import { myProvider } from '@/lib/ai/models';
 import { systemPrompt } from '@/lib/ai/prompts';
 import {
-  createUserEval,
+  UserMessage,
   deleteChatById,
   getChatById,
-  getUserEval,
   saveChat,
   saveMessages,
 } from '@/lib/db/queries';
@@ -27,8 +26,6 @@ import { createDocument } from '@/lib/ai/tools/create-document';
 import { updateDocument } from '@/lib/ai/tools/update-document';
 import { requestSuggestions } from '@/lib/ai/tools/request-suggestions';
 import { getWeather } from '@/lib/ai/tools/get-weather';
-import { use } from 'react';
-import { addUserMsg, getUserMsgs } from '@/lib/db/userEvalMap';
 
 export const maxDuration = 60;
 
@@ -65,9 +62,9 @@ export async function POST(request: Request) {
     messages: [{ ...userMessage, createdAt: new Date(), chatId: id }],
   });
 
-  const cacheMsgCnt = await addUserMsg(session.user.id, userMessage.content);
-  if (cacheMsgCnt >= 10) {
-    const userMsgConcat = await getUserMsgs(session.user.id);
+  const cacheMsgCnt = await UserMessage.add(session.user.id, userMessage.content);
+  if (cacheMsgCnt >= 2) {
+    const userMsgConcat = await UserMessage.getAll(session.user.id);
     userEval(session.user.id, userMsgConcat);
   }
 

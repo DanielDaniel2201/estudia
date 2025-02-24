@@ -9,11 +9,12 @@ import {
   getUserEval,
   saveUserEval,
   updateChatVisiblityById,
+  UserMessage,
 } from '@/lib/db/queries';
 import { VisibilityType } from '@/components/visibility-selector';
 import { myProvider } from '@/lib/ai/models';
 import { useId } from 'react';
-import { clearUserMsgs } from '@/lib/db/userEvalMap';
+// import { clearUserMsgs } from '@/lib/db/userEvalMap';
 
 export async function saveChatModelAsCookie(model: string) {
   const cookieStore = await cookies();
@@ -44,28 +45,29 @@ export async function userEval(userId: string, userMsg: string) {
     const { text: evalResult } = await generateText({
       model: myProvider.languageModel('eval-model'),
       system: `\n
-      根据用户的提问内容，分析其西班牙语水平（如初级、中级或高级，或其他评级比如A1--C2
-      以及兴趣领域或其他相关信息。输出需简明扼要，约50字左右，包括语言能力评价和用户可能的兴趣点或背景特征。
+      根据用户的提问内容，分析其西班牙语水平（如初级、中级或高级，或其他评级比如A1--C2)
+      以及兴趣领域或其他相关信息, 要概括性的分析，不要纠结于个别词语，以及要专注提问的问题本身，不要过分关注提问用语等次要信息。
+      输出需简明扼要，约50字左右，包括语言能力评价和用户可能的兴趣点或背景特征。
       注意！直接输出分析结果，不要多余的思考和交互
       `,
       prompt: JSON.stringify(userMsg),
     });
     saveUserEval(userId, evalResult);
-    clearUserMsgs(userId);
+    UserMessage.clear(userId);
   } else {
       const { text: evalResult } = await generateText({
       model: myProvider.languageModel('eval-model'),
       system: `
       \n综合用户的提问内容和先前的分析结果，再次进行分析和调整其西班牙语水平（如初级、中级或高级，或其他评级比如A1--C2）
-      用户可能进步和退步，一定要客观实际。
-      以及兴趣领域或其他相关信息。输出需简明扼要，约100字左右，包括语言能力评价和用户可能的兴趣点或背景特征。
+      用户可能进步和退步，一定要客观实际
+      以及分析兴趣领域或其他相关信息，要概括性的分析，不要纠结于个别词语，以及要专注提问的问题本身，不要过分关注提问用语等次要信息。。输出需简明扼要，约100字左右，包括语言能力评价和用户可能的兴趣点或背景特征。
       注意！直接输出分析结果，不要多余的思考和交互
       \n这是用户上次的评估内容供你参考：${prevEval![0].evaluation}
       `,
       prompt: JSON.stringify(userMsg),
     });
     saveUserEval(userId, evalResult);
-    clearUserMsgs(userId);
+    UserMessage.clear(userId);
   }
 }
 

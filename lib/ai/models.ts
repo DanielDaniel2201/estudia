@@ -8,7 +8,7 @@ import {
 } from 'ai';
 import { wrap } from 'module';
 
-export const DEFAULT_CHAT_MODEL: string = 'gemini-2.0-pro';
+export const DEFAULT_CHAT_MODEL: string = 'gemini-2.0-flash';
 
 const openrouter = createOpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY
@@ -29,10 +29,10 @@ export const myProvider = customProvider({
       model: openrouter('deepseek/deepseek-r1:free'),
       middleware: extractReasoningMiddleware({ tagName: 'think' })
     }),
-    // 'gemini-2.0-flash-thinking-exp': wrapLanguageModel({
-    //   model: google('gemini-2.0-flash-thinking-exp-01-21'),
-    //   middleware: extractReasoningMiddleware({ tagName: 'think' })
-    // }),
+    'gemini-2.0-flash-thinking-exp': wrapLanguageModel({
+      model: google('gemini-2.0-flash-thinking-exp-01-21'),
+      middleware: extractReasoningMiddleware({ tagName: 'think' })
+    }),
       
       // chat models
       'llama-3.3-70b-versatile': groq('llama-3.3-70b-versatile'),
@@ -49,7 +49,8 @@ export const myProvider = customProvider({
       'learnlm-1.5': google('learnlm-1.5-pro-experimental'),
 
     // util models
-    'title-model': google('gemini-2.0-flash-lite-preview-02-05'),
+    // 'title-model': google('gemini-2.0-flash-lite-preview-02-05'),
+    'title-model': groq('llama-3.1-8b-instant'),
     'block-model': groq('mixtral-8x7b-32768'),
     'identify-is-word-query': groq('qwen-2.5-32b'),
     'eval-model': google('gemini-2.0-flash-001'),
@@ -76,6 +77,11 @@ export const chatModels: Array<ChatModel> = [
     name: 'learnlm-1.5',
     description: 'specifically aligned with learning science principles'
   },
+  {
+    id: 'gemini-2.0-pro',
+    name: 'gemini-2.0-pro',
+    description: 'powerfull for complex tasks, may suffer from rate limit'
+  },
   // {
   //   id: 'deepseek-r1',
   //   name: 'deepseek-r1',
@@ -96,11 +102,11 @@ export const chatModels: Array<ChatModel> = [
   //   name: 'deepseek-v3',
   //   description: 'free version, may suffer severe latency'
   // },
-  {
-    id: 'gemini-2.0-pro',
-    name: 'gemini-1206',
-    description: 'powerfull for complex tasks, may suffer from rate limit'
-  },
+  // {
+  //   id: 'gemini-1206',
+  //   name: 'gemini-1206',
+  //   description: 'powerfull for complex tasks, may suffer from rate limit'
+  // },
 
   // {
   //   id: 'gemini-2.0-flash-thinking-exp',
