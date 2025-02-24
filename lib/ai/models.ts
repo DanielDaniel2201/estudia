@@ -51,7 +51,7 @@ export const myProvider = customProvider({
     'title-model': google('gemini-2.0-flash-lite-preview-02-05'),
     'block-model': groq('mixtral-8x7b-32768'),
     'identify-is-word-query': groq('qwen-2.5-32b'),
-    'eval-model': google('learnlm-1.5-pro-experimental'),
+    'eval-model': google('gemini-2.0-flash-001'),
   },
   textEmbeddingModels: {
     'text-embedding': google.textEmbeddingModel('text-embedding-004'),
