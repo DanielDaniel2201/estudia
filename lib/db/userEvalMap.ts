@@ -5,6 +5,7 @@ export async function addUserMsg(userId: string, msg: string) {
     usersMessages[userId] = [];
   }
   usersMessages[userId].push(msg);
+  console.log(JSON.stringify(usersMessages, null, 2));
   return usersMessages[userId].length;
 }
 

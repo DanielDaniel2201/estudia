@@ -44,6 +44,7 @@ export const myProvider = customProvider({
       'gemini-2.0-flash-openrouter': openrouter('google/gemini-2.0-flash-exp:free'),
 
       'gemini-2.0-pro' : google('gemini-2.0-pro-exp-02-05'),
+      'gemini-1206' : google('gemini-exp-1206'),
       'gemini-2.0-flash': google('gemini-2.0-flash'),
       'learnlm-1.5': google('learnlm-1.5-pro-experimental'),
 
@@ -84,12 +85,12 @@ export const chatModels: Array<ChatModel> = [
   //   id: 'gemini-2.0-flash-openrouter',
   //   name: 'gemini-2.0-flash-openrouter',
   //   description: 'gemini from google through openrouter'
+  // // },
+  // {
+  //   id: 'qwen-2.5-32b',
+  //   name: 'qwen-2.5-32b',
+  //   description: 'general-purpose chat model',
   // },
-  {
-    id: 'qwen-2.5-32b',
-    name: 'qwen-2.5-32b',
-    description: 'general-purpose chat model',
-  },
   // {
   //   id: 'deepseek-v3',
   //   name: 'deepseek-v3',
@@ -97,7 +98,7 @@ export const chatModels: Array<ChatModel> = [
   // },
   {
     id: 'gemini-2.0-pro',
-    name: 'gemini-2.0-pro',
+    name: 'gemini-1206',
     description: 'powerfull for complex tasks, may suffer from rate limit'
   },
 
