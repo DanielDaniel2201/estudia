@@ -29,6 +29,8 @@ import { getWeather } from '@/lib/ai/tools/get-weather';
 
 export const maxDuration = 60;
 
+const evalMsgCnt = 10;
+
 export async function POST(request: Request) {
   const {
     id,
@@ -63,7 +65,7 @@ export async function POST(request: Request) {
   });
 
   const cacheMsgCnt = await UserMessage.add(session.user.id, userMessage.content);
-  if (cacheMsgCnt >= 2) {
+  if (cacheMsgCnt >= evalMsgCnt) {
     const userMsgConcat = await UserMessage.getAll(session.user.id);
     userEval(session.user.id, userMsgConcat);
   }
