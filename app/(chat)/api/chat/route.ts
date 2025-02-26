@@ -74,7 +74,7 @@ export async function POST(request: Request) {
     execute: (dataStream) => {
       const result = streamText({
         model: myProvider.languageModel(selectedChatModel),
-        system: `${systemPrompt()} \n Context: ${contextInfo}`,
+        system: `${systemPrompt({selectedChatModel})} \n Context: ${contextInfo}`,
         messages,
         maxSteps: 5,
         experimental_activeTools:
