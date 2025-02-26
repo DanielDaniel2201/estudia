@@ -21,10 +21,10 @@ export const myProvider = customProvider({
       model: groq('deepseek-r1-distill-llama-70b'),
       middleware: extractReasoningMiddleware({ tagName: 'think' }),
     }),
-    'deepseek-r1-distill-qwen-32b': wrapLanguageModel({
-      model: groq('deepseek-r1-distill-qwen-32b'),
-      middleware: extractReasoningMiddleware({ tagName: 'think' }),
-    }),
+    // 'deepseek-r1-distill-qwen-32b': wrapLanguageModel({
+    //   model: groq('deepseek-r1-distill-qwen-32b'),
+    //   middleware: extractReasoningMiddleware({ tagName: 'think' }),
+    // }),
     'deepseek-r1': wrapLanguageModel({
       model: openrouter('deepseek/deepseek-r1:free'),
       middleware: extractReasoningMiddleware({ tagName: 'think' })
@@ -44,15 +44,15 @@ export const myProvider = customProvider({
       'gemini-2.0-flash-openrouter': openrouter('google/gemini-2.0-flash-exp:free'),
 
       'gemini-2.0-pro' : google('gemini-2.0-pro-exp-02-05'),
-      'gemini-1206' : google('gemini-exp-1206'),
       'gemini-2.0-flash': google('gemini-2.0-flash'),
+      'gemini-2.0-flash-lite': google('gemini-2.0-flash-lite-001'),
       'learnlm-1.5': google('learnlm-1.5-pro-experimental'),
 
     // util models
     // 'title-model': google('gemini-2.0-flash-lite-preview-02-05'),
     'title-model': groq('llama-3.1-8b-instant'),
     'block-model': groq('mixtral-8x7b-32768'),
-    'identify-is-word-query': groq('qwen-2.5-32b'),
+    'identify-is-word-query': groq('mixtral-8x7b-32768'),
     'eval-model': google('gemini-2.0-flash-001'),
   },
   textEmbeddingModels: {
@@ -69,19 +69,29 @@ interface ChatModel {
 export const chatModels: Array<ChatModel> = [
   {
     id: 'gemini-2.0-flash',
-    name: 'gemini-2.0-flash',
-    description: 'workhourse model with low latency'
-  },
-  {
-    id: 'learnlm-1.5',
-    name: 'learnlm-1.5',
-    description: 'specifically aligned with learning science principles'
+    name: 'Quick Q&A',
+    description: 'Get straight to the point for direct questions'
   },
   {
     id: 'gemini-2.0-pro',
-    name: 'gemini-2.0-pro',
-    description: 'powerfull for complex tasks, may suffer from rate limit'
+    name: 'Roleplay',
+    description: 'Virtual life scene to practive conversation'
   },
+  {
+    id: 'deepseek-r1-distill-llama-70b',
+    name: 'Deep-Dive',
+    description: 'Deep dive into grammar, literature, and linguistics',
+  },
+  // {
+  //   id: 'learnlm-1.5',
+  //   name: 'learnlm-1.5',
+  //   description: 'specifically aligned with learning science principles'
+  // },
+  // {
+  //   id: 'gemini-2.0-flash-lite',
+  //   name: 'gemini-2.0-flash-lite',
+  //   description: 'cost effective and low latency',
+  // },
   // {
   //   id: 'deepseek-r1',
   //   name: 'deepseek-r1',
@@ -111,7 +121,7 @@ export const chatModels: Array<ChatModel> = [
   // {
   //   id: 'gemini-2.0-flash-thinking-exp',
   //   name: 'gemini-2.0-flash-thinking-exp',
-  //   description: ''
+  //   description: 'reasoning model'
   // }
   // {
   //   id: 'llama-3.3-70b-versatile',
@@ -122,11 +132,6 @@ export const chatModels: Array<ChatModel> = [
   //   id: 'deepseek-r1-distill-qwen-32b',
   //   name: 'deepseek-r1-distill-qwen-32b',
   //   description: 'For communication in Chinese, little latency',
-  // },
-  // {
-  //   id: 'deepseek-r1-distill-llama-70b',
-  //   name: 'deepseek-r1-distill-llama-70b',
-  //   description: 'For communication in languages other than Chinese',
   // },
   // {
   //   id: 'llama-3.1-8b-instant',

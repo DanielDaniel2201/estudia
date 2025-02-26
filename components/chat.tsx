@@ -36,10 +36,10 @@ export function Chat({
     messages,
     setMessages,
     handleSubmit,
-    input,
-    setInput,
-    append,
-    isLoading,
+    input, // 用户输入
+    setInput, // 更新用户输入
+    append, // 添加消息到消息列表
+    isLoading, // ai正在生成消息
     stop,
     reload,
   } = useChat({
@@ -49,10 +49,11 @@ export function Chat({
     experimental_throttle: 100,
     sendExtraMessageFields: true,
     generateId: generateUUID,
-    onFinish: () => {
+    onFinish: () => { //当消息发送完成时，调用 mutate('/api/history')，刷新聊天历史
       mutate('/api/history');
     },
     onError: (error) => {
+      console.error(error);
       toast.error('An error occured, please try again!');
     },
   });
