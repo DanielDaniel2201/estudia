@@ -21,7 +21,7 @@ import {
   sanitizeResponseMessages,
 } from '@/lib/utils';
 
-import { generateTitleFromUserMessage, identifyIsWordQuery, userEval } from '../../actions';
+import { generateTitleFromUserMessage, identifyIsWordQuery, queryRefine, userEval } from '../../actions';
 import { createDocument } from '@/lib/ai/tools/create-document';
 import { updateDocument } from '@/lib/ai/tools/update-document';
 import { requestSuggestions } from '@/lib/ai/tools/request-suggestions';
@@ -46,9 +46,16 @@ export async function POST(request: Request) {
   }
 
   const userMessage = getMostRecentUserMessage(messages);
-  
+
   if (!userMessage) {
     return new Response('No user message found', { status: 400 });
+  }
+
+  const refinedContent = await queryRefine({message: userMessage?.content});
+
+  const refinedMsg = {
+    ...userMessage,
+    content: refinedContent,
   }
 
   const chat = await getChatById({ id });
@@ -61,7 +68,7 @@ export async function POST(request: Request) {
   const contextInfo = await identifyIsWordQuery({ message: userMessage });
   
   await saveMessages({
-    messages: [{ ...userMessage, createdAt: new Date(), chatId: id }],
+    messages: [{ ...refinedMsg, createdAt: new Date(), chatId: id }],
   });
 
   const cacheMsgCnt = await UserMessage.add(session.user.id, userMessage.content);
@@ -75,7 +82,10 @@ export async function POST(request: Request) {
       const result = streamText({
         model: myProvider.languageModel(selectedChatModel),
         system: `${systemPrompt({selectedChatModel})} \n Context: ${contextInfo}`,
-        messages,
+        messages: [
+          ...messages.slice(0, -1),
+          refinedMsg,
+        ],
         maxSteps: 5,
         experimental_activeTools:
           selectedChatModel.includes('deepseek-r1')

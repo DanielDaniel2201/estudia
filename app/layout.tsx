@@ -7,8 +7,8 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://chat.vercel.ai'),
-  title: 'Spanish Consultant',
-  description: 'Your consultant to learn Spanish',
+  title: 'Habla',
+  description: 'Habla para aprender!',
 };
 
 export const viewport = {
