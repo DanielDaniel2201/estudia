@@ -95,7 +95,6 @@ export async function queryRefine({message}: {message: string}) {
     `,
     prompt: JSON.stringify(message),
   });
-  console.log(refinedMsg);
   return refinedMsg;
 }
 

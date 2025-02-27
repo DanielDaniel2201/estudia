@@ -38,7 +38,6 @@ export async function POST(request: Request) {
     selectedChatModel,
   }: { id: string; messages: Array<Message>; selectedChatModel: string } =
     await request.json();
-  console.log(selectedChatModel);
   const session = await auth();
   
   if (!session || !session.user || !session.user.id) {
