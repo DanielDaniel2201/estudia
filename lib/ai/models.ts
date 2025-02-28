@@ -1,6 +1,7 @@
 import { groq } from '@ai-sdk/groq'
 import { google } from '@ai-sdk/google';
 import { createOpenRouter } from '@openrouter/ai-sdk-provider';
+import { deepseek } from '@ai-sdk/deepseek';
 import {
   customProvider,
   extractReasoningMiddleware,
@@ -17,36 +18,42 @@ const openrouter = createOpenRouter({
 export const myProvider = customProvider({
   languageModels: {
     // reasoning models:
+    'deepseek-r1': wrapLanguageModel({
+      model: deepseek('deepseek-reasoner'),
+      middleware: extractReasoningMiddleware({ tagName: 'think' })
+    }),
+
     'deepseek-r1-distill-llama-70b': wrapLanguageModel({
       model: groq('deepseek-r1-distill-llama-70b'),
       middleware: extractReasoningMiddleware({ tagName: 'think' }),
     }),
     // 'deepseek-r1-distill-qwen-32b': wrapLanguageModel({
-    //   model: groq('deepseek-r1-distill-qwen-32b'),
-    //   middleware: extractReasoningMiddleware({ tagName: 'think' }),
-    // }),
-    'deepseek-r1': wrapLanguageModel({
+      //   model: groq('deepseek-r1-distill-qwen-32b'),
+      //   middleware: extractReasoningMiddleware({ tagName: 'think' }),
+      // }),
+    'deepseek-r1-openrouter': wrapLanguageModel({
       model: openrouter('deepseek/deepseek-r1:free'),
       middleware: extractReasoningMiddleware({ tagName: 'think' })
     }),
     'gemini-2.0-flash-thinking-exp': wrapLanguageModel({
-      model: google('gemini-2.0-flash-thinking-exp-01-21'),
+      model: google('gemini-2.0-flash-thinking-exp'),
       middleware: extractReasoningMiddleware({ tagName: 'think' })
     }),
-      
-      // chat models
-      'llama-3.3-70b-versatile': groq('llama-3.3-70b-versatile'),
-      'qwen-2.5-32b': groq('qwen-2.5-32b'),
-      'llama-3.1-8b-instant': groq('llama-3.1-8b-instant'),
-      'mixtral-8x7b-32768': groq('mixtral-8x7b-32768'),
-      
-      'deepseek-v3': openrouter('deepseek/deepseek-chat:free'),
-      'gemini-2.0-flash-openrouter': openrouter('google/gemini-2.0-flash-exp:free'),
+    
+    // chat models
+    'deepseek-v3': deepseek('deepseek-chat'),
+    'llama-3.3-70b-versatile': groq('llama-3.3-70b-versatile'),
+    'qwen-2.5-32b': groq('qwen-2.5-32b'),
+    'llama-3.1-8b-instant': groq('llama-3.1-8b-instant'),
+    'mixtral-8x7b-32768': groq('mixtral-8x7b-32768'),
+    
+    'deepseek-v3-openrouter': openrouter('deepseek/deepseek-chat:free'),
+    'gemini-2.0-flash-openrouter': openrouter('google/gemini-2.0-flash-exp:free'),
 
-      'gemini-2.0-pro' : google('gemini-2.0-pro-exp-02-05'),
-      'gemini-2.0-flash': google('gemini-2.0-flash'),
-      'gemini-2.0-flash-lite': google('gemini-2.0-flash-lite-001'),
-      'learnlm-1.5': google('learnlm-1.5-pro-experimental'),
+    'gemini-2.0-pro' : google('gemini-2.0-pro-exp-02-05'),
+    'gemini-2.0-flash': google('gemini-2.0-flash'),
+    'gemini-2.0-flash-lite': google('gemini-2.0-flash-lite-001'),
+    'learnlm-1.5': google('learnlm-1.5-pro-experimental'),
 
     // util models
     // 'title-model': google('gemini-2.0-flash-lite-preview-02-05'),
@@ -68,7 +75,7 @@ interface ChatModel {
 
 export const chatModels: Array<ChatModel> = [
   {
-    id: 'gemini-2.0-flash',
+    id: 'deepseek-v3',
     name: 'Quick Q&A',
     description: 'Get straight to the point for direct questions'
   },
@@ -78,7 +85,7 @@ export const chatModels: Array<ChatModel> = [
     description: 'Virtual life scene to practive conversation'
   },
   {
-    id: 'deepseek-r1-distill-llama-70b',
+    id: 'deepseek-r1',
     name: 'Deep-Dive',
     description: 'Deep dive into grammar, literature, and linguistics',
   },

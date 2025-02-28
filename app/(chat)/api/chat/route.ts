@@ -90,10 +90,10 @@ export async function POST(request: Request) {
           selectedChatModel.includes('deepseek-r1')
             ? []
             : [
-                'getWeather',
-                'createDocument',
-                'updateDocument',
-                'requestSuggestions',
+                // 'getWeather',
+                // 'createDocument',
+                // 'updateDocument',
+                // 'requestSuggestions',
               ],
         experimental_transform: smoothStream({ chunking: 'word' }),
         experimental_generateMessageId: generateUUID,
