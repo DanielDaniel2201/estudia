@@ -9,7 +9,7 @@ import {
 } from 'ai';
 import { wrap } from 'module';
 
-export const DEFAULT_CHAT_MODEL: string = 'deepseek-v3';
+export const DEFAULT_CHAT_MODEL: string = 'gemini-flash-2.0';
 
 const openrouter = createOpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY
@@ -75,12 +75,12 @@ interface ChatModel {
 
 export const chatModels: Array<ChatModel> = [
   {
-    id: 'deepseek-v3',
+    id: 'gemini-flash-2.0',
     name: 'Quick Q&A',
     description: 'Get straight to the point for direct questions'
   },
   {
-    id: 'gemini-2.0-pro',
+    id: 'deepseek-v3',
     name: 'Roleplay',
     description: 'Virtual life scene to practive conversation'
   },
