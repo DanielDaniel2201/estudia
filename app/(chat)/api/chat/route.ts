@@ -50,12 +50,12 @@ export async function POST(request: Request) {
     return new Response('No user message found', { status: 400 });
   }
 
-  const refinedContent = await queryRefine({message: userMessage?.content});
+  // const refinedContent = await queryRefine({message: userMessage?.content});
 
-  const refinedMsg = {
-    ...userMessage,
-    content: refinedContent,
-  }
+  // const refinedMsg = {
+  //   ...userMessage,
+  //   content: refinedContent,
+  // }
 
   const chat = await getChatById({ id });
 
@@ -67,7 +67,7 @@ export async function POST(request: Request) {
   const contextInfo = await identifyIsWordQuery({ message: userMessage });
   
   await saveMessages({
-    messages: [{ ...refinedMsg, createdAt: new Date(), chatId: id }],
+    messages: [{ ...userMessage, createdAt: new Date(), chatId: id }],
   });
 
   const cacheMsgCnt = await UserMessage.add(session.user.id, userMessage.content);
@@ -81,10 +81,11 @@ export async function POST(request: Request) {
       const result = streamText({
         model: myProvider.languageModel(selectedChatModel),
         system: `${systemPrompt({selectedChatModel})} \n Context: ${contextInfo}`,
-        messages: [
-          ...messages.slice(0, -1),
-          refinedMsg,
-        ],
+        messages,
+        // [
+        //   ...messages.slice(0, -1),
+        //   refinedMsg,
+        // ],
         maxSteps: 5,
         experimental_activeTools:
           selectedChatModel.includes('deepseek-r1')
