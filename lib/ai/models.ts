@@ -9,7 +9,7 @@ import {
 } from 'ai';
 import { wrap } from 'module';
 
-export const DEFAULT_CHAT_MODEL: string = 'gemini-2.0-flash';
+export const DEFAULT_CHAT_MODEL: string = 'deepseek-v3';
 
 const openrouter = createOpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY
