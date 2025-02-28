@@ -9,7 +9,7 @@ import {
 } from 'ai';
 import { wrap } from 'module';
 
-export const DEFAULT_CHAT_MODEL: string = 'gemini-flash-2.0';
+export const DEFAULT_CHAT_MODEL: string = 'gemini-2.0-flash';
 
 const openrouter = createOpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY
@@ -75,7 +75,7 @@ interface ChatModel {
 
 export const chatModels: Array<ChatModel> = [
   {
-    id: 'gemini-flash-2.0',
+    id: 'gemini-2.0-flash',
     name: 'Quick Q&A',
     description: 'Get straight to the point for direct questions'
   },
