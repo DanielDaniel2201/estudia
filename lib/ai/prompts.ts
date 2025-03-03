@@ -218,7 +218,7 @@ export const systemPrompt = ({
 }) => {
   if (selectedChatModel === 'gemini-2.0-flash') {
     return quickqaPromptChinese;
-  } else if (selectedChatModel === 'gemini-2.0-pro') {
+  } else if (selectedChatModel === 'deepseek-v3') {
     return roleplayPromptChinese;
   } else if (selectedChatModel === 'deepseek-r1') {
     return deepdivePromptChinese;
