@@ -220,7 +220,7 @@ export const systemPrompt = ({
     return quickqaPromptChinese;
   } else if (selectedChatModel === 'gemini-2.0-pro') {
     return roleplayPromptChinese;
-  } else if (selectedChatModel === 'deepseek-r1-distill-llama-70b') {
+  } else if (selectedChatModel === 'deepseek-r1') {
     return deepdivePromptChinese;
   }
 };
