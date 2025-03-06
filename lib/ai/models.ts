@@ -27,13 +27,9 @@ export const myProvider = customProvider({
       model: groq('deepseek-r1-distill-llama-70b'),
       middleware: extractReasoningMiddleware({ tagName: 'think' }),
     }),
-    // 'deepseek-r1-distill-qwen-32b': wrapLanguageModel({
-      //   model: groq('deepseek-r1-distill-qwen-32b'),
-      //   middleware: extractReasoningMiddleware({ tagName: 'think' }),
-      // }),
-    'deepseek-r1-openrouter': wrapLanguageModel({
-      model: openrouter('deepseek/deepseek-r1:free'),
-      middleware: extractReasoningMiddleware({ tagName: 'think' })
+    'qwen-qwq-32b': wrapLanguageModel({
+      model: groq('qwen-qwq-32b'),
+      middleware: extractReasoningMiddleware({ tagName: 'think'}),
     }),
     'gemini-2.0-flash-thinking-exp': wrapLanguageModel({
       model: google('gemini-2.0-flash-thinking-exp'),
@@ -41,7 +37,6 @@ export const myProvider = customProvider({
     }),
     
     // chat models
-    'deepseek-v3': deepseek('deepseek-chat'),
     'llama-3.3-70b-versatile': groq('llama-3.3-70b-versatile'),
     'qwen-2.5-32b': groq('qwen-2.5-32b'),
     'llama-3.1-8b-instant': groq('llama-3.1-8b-instant'),
@@ -49,16 +44,17 @@ export const myProvider = customProvider({
     
     'deepseek-v3-openrouter': openrouter('deepseek/deepseek-chat:free'),
     'gemini-2.0-flash-openrouter': openrouter('google/gemini-2.0-flash-exp:free'),
-
+    
     'gemini-2.0-pro' : google('gemini-2.0-pro-exp-02-05'),
     'gemini-2.0-flash': google('gemini-2.0-flash'),
     'gemini-2.0-flash-lite': google('gemini-2.0-flash-lite-001'),
     'learnlm-1.5': google('learnlm-1.5-pro-experimental'),
-
+    
+    'deepseek-v3': deepseek('deepseek-chat'),
     // util models
     // 'title-model': google('gemini-2.0-flash-lite-preview-02-05'),
     'title-model': groq('llama-3.1-8b-instant'),
-    'block-model': groq('mixtral-8x7b-32768'),
+    'block-model': groq('llama-3.3-70b-versatile'),
     'identify-is-word-query': google('gemini-2.0-flash-exp'),
     'eval-model': google('gemini-2.0-flash-001'),
   },
@@ -85,7 +81,7 @@ export const chatModels: Array<ChatModel> = [
     description: 'Virtual life scene to practive conversation'
   },
   {
-    id: 'deepseek-r1',
+    id: 'qwen-qwq-32b',
     name: 'Deep-Dive',
     description: 'Deep dive into grammar, literature, and linguistics',
   },
