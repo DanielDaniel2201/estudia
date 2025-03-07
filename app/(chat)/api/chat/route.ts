@@ -21,7 +21,7 @@ import {
   sanitizeResponseMessages,
 } from '@/lib/utils';
 
-import { generateTitleFromUserMessage, identifyIsWordQuery, queryRefine, userEval } from '../../actions';
+import { generateTitleFromUserMessage, identifyIsWordQuery, userEval } from '../../actions';
 import { createDocument } from '@/lib/ai/tools/create-document';
 import { updateDocument } from '@/lib/ai/tools/update-document';
 import { requestSuggestions } from '@/lib/ai/tools/request-suggestions';
@@ -50,13 +50,6 @@ export async function POST(request: Request) {
     return new Response('No user message found', { status: 400 });
   }
 
-  // const refinedContent = await queryRefine({message: userMessage?.content});
-
-  // const refinedMsg = {
-  //   ...userMessage,
-  //   content: refinedContent,
-  // }
-
   const chat = await getChatById({ id });
 
   if (!chat) {
@@ -82,10 +75,6 @@ export async function POST(request: Request) {
         model: myProvider.languageModel(selectedChatModel),
         system: `${systemPrompt({selectedChatModel})} \n Context: ${contextInfo}`,
         messages,
-        // [
-        //   ...messages.slice(0, -1),
-        //   refinedMsg,
-        // ],
         maxSteps: 5,
         experimental_activeTools:
           selectedChatModel.includes('deepseek-r1')

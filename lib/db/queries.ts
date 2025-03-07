@@ -16,7 +16,8 @@ import {
   message,
   vote,
   audios,
-  userEval
+  userEval,
+  videoAnalysis
 } from './schema';
 import { BlockKind } from '@/components/block';
 import { Redis } from "@upstash/redis";
@@ -33,6 +34,18 @@ export const redis = new Redis({
   url: process.env.KV_REST_API_URL,
   token: process.env.KV_REST_API_TOKEN, // 如果 Upstash 需要 token
 });
+
+export async function saveYoutubeAnalysis(analysis: string, url: string) {
+  try {
+    return await db.insert(videoAnalysis).values({
+      analysis,
+      videoUrl: url,
+    });
+  } catch (error) {
+    console.error('Failed to save video analysis result in database');
+    throw error;
+  }
+}
 
 // 工具函数：生成用户消息键名
 const getUserMessageKey = (userId: string) => `user:${userId}:messages`;

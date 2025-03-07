@@ -14,6 +14,15 @@ import {
 } from 'drizzle-orm/pg-core';
 import { blockKinds } from '../blocks/server';
 
+export const videoAnalysis = pgTable('videoAnalysis', {
+  id: uuid('id').primaryKey().notNull().defaultRandom(),
+  analysis: text('analysis').notNull(),
+  videoUrl: text('videlUrl').notNull(),
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
+})
+
+export type VideoAnalysis = InferSelectModel<typeof videoAnalysis>;
+
 export const audios = pgTable('audios', {
   content: varchar('content', { length: 256}).notNull(),
   audio_url: text('audio_url').notNull(),

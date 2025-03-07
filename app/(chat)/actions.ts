@@ -14,7 +14,6 @@ import {
 import { VisibilityType } from '@/components/visibility-selector';
 import { myProvider } from '@/lib/ai/models';
 import { useId } from 'react';
-// import { clearUserMsgs } from '@/lib/db/userEvalMap';
 
 export async function saveChatModelAsCookie(model: string) {
   const cookieStore = await cookies();
@@ -171,7 +170,7 @@ export async function identifyIsWordQuery({
       const data = await response.json();
       return JSON.stringify(data, null, 2);
     }
-    return ''
+    return '';
   }
   return '';
 }

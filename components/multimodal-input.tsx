@@ -27,8 +27,8 @@ import { ArrowUpIcon, PaperclipIcon, StopIcon } from './icons';
 import { PreviewAttachment } from './preview-attachment';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
-import { SuggestedActions } from './suggested-actions';
 import equal from 'fast-deep-equal';
+import { Input } from './ui/input';
 
 function PureMultimodalInput({
   chatId,
@@ -116,6 +116,8 @@ function PureMultimodalInput({
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadQueue, setUploadQueue] = useState<Array<string>>([]);
+  //New States
+  const [videoUrl, setvideoUrl] = useState('');
 
   const submitForm = useCallback(() => {
     window.history.replaceState({}, '', `/chat/${chatId}`);
@@ -193,6 +195,34 @@ function PureMultimodalInput({
     [setAttachments],
   );
 
+  //New Function
+  const handleVideoUrlSubmit = useCallback(async () => {
+    if (videoUrl.trim() === "") {
+      toast.error("Please enter a valid YouTube link.");
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/videourlproc', { // New endpoint
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ videoUrl }),
+      });
+      console.log(JSON.stringify({ videoUrl }));
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        toast.error(`Error processing YouTube link: ${errorData.error || response.statusText}`);
+        return;
+      }
+      const data = await response.json();
+      // Handle the response from the server (e.g., update UI)
+      console.log('YouTube link processed successfully:', data);
+    } catch (error) {
+      toast.error(`Error processing YouTube link: ${error}`);
+    }
+  }, [videoUrl]);
+
   return (
     <div className="relative w-full flex flex-col gap-4">
       <input
@@ -248,8 +278,15 @@ function PureMultimodalInput({
         }}
       />
 
-      <div className="absolute bottom-0 p-2 w-fit flex flex-row justify-start">
+      <div className="absolute bottom-0 p-2 w-fit flex flex-row justify-start items-center gap-2">
         <AttachmentsButton fileInputRef={fileInputRef} isLoading={isLoading} />
+        {/* 使用 UploadVideoButton 组件 */}
+        <UploadVideoButton
+          isLoading={isLoading}
+          videoUrl={videoUrl}
+          setvideoUrl={setvideoUrl}
+          handleVideoUrlSubmit={handleVideoUrlSubmit}
+        />
       </div>
 
       <div className="absolute bottom-0 right-0 p-2 w-fit flex flex-row justify-end">
@@ -354,3 +391,57 @@ const SendButton = memo(PureSendButton, (prevProps, nextProps) => {
   if (prevProps.input !== nextProps.input) return false;
   return true;
 });
+
+// New component
+function PureUploadVideoButton({
+  isLoading,
+  videoUrl,
+  setvideoUrl,
+  handleVideoUrlSubmit,
+}: {
+  isLoading: boolean;
+  videoUrl: string;
+  setvideoUrl: (value: string) => void;
+  handleVideoUrlSubmit: () => Promise<void>;
+}) {
+  const [showYoutubeInput, setShowYoutubeInput] = useState(false);
+
+  return (
+    <>
+      <Button
+        type="button"
+        className="rounded-md rounded-bl-lg p-[7px] h-fit dark:border-zinc-700 hover:dark:bg-zinc-900 hover:bg-zinc-200"
+        onClick={() => setShowYoutubeInput(!showYoutubeInput)}
+        disabled={isLoading}
+        variant="ghost"
+      >
+        🎬
+      </Button>
+      {showYoutubeInput && (
+        <div className="flex gap-2">
+          <Input
+            type="text"
+            placeholder="Enter video link"
+            value={videoUrl}
+            onChange={(e) => setvideoUrl(e.target.value)}
+            className="rounded-md rounded-bl-lg p-[7px] h-fit dark:border-zinc-700 hover:dark:bg-zinc-900 hover:bg-zinc-200"
+          />
+          <Button
+            type="button"
+            className="rounded-md rounded-bl-lg p-[7px] h-fit dark:border-zinc-700 hover:dark:bg-zinc-900 hover:bg-zinc-200"
+            onClick={async () => {
+              await handleVideoUrlSubmit();
+              setShowYoutubeInput(false); // Hide after upload
+              setvideoUrl('');
+            }}
+            variant="ghost"
+          >
+            📤
+          </Button>
+        </div>
+      )}
+    </>
+  );
+}
+
+const UploadVideoButton = memo(PureUploadVideoButton);
