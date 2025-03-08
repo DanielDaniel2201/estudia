@@ -215,14 +215,25 @@ function PureMultimodalInput({
         toast.error(`Error processing VideoUrl link: ${errorData.error || response.statusText}`);
         return;
       }
-      const { transcriptionFilePath }: {transcriptionFilePath: string} = await response.json();
+      const { transcription }: {transcription: string} = await response.json();
       // Handle the response from the server (e.g., update UI)
-      console.log('VideoUrl link processed successfully:', transcriptionFilePath);
-      toast.success("Video transcription completed");
+      const blob = new Blob([transcription], { type: 'text/plain' });
+      const file = new File([blob], 'transcription.txt', { type: 'text/plain' }); // 创建 File 对象
+      const uploadResult = await uploadFile(file); // 使用 uploadFile 函数上传
+
+      if (uploadResult) {
+        setAttachments((currentAttachments) => [
+          ...currentAttachments,
+          uploadResult,
+        ]);
+        toast.success("Transcription uploaded successfully!");
+      } else {
+        toast.error("Failed to upload transcription.")
+      }
     } catch (error) {
       toast.error(`Error processing VideoUrl link: ${error}`);
     }
-  }, [videoUrl]);
+  }, [videoUrl, setAttachments]);
 
   return (
     <div className="relative w-full flex flex-col gap-4">

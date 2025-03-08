@@ -5,7 +5,7 @@ import { createWriteStream, createReadStream, existsSync, unlinkSync } from 'fs'
 import { mkdir } from 'fs/promises';
 import { Groq } from 'groq-sdk';
 
-const DOWNLOAD_DIR = path.join(process.cwd(), 'downloads');
+const DOWNLOAD_DIR = path.join(process.cwd(), 'tmp');
 
 async function download_video_url(videoUrl: string) {
   try {
@@ -18,8 +18,6 @@ async function download_video_url(videoUrl: string) {
     // 获取视频信息
     const info = await ytdl.getInfo(videoUrl);
     const videoId = info.videoDetails.videoId;
-    const videoTitle = info.videoDetails.title.replace(/[^\w\s]/gi, '') || 'audio';
-    console.log(videoTitle);
 
     // 文件路径
     const fileName = `${videoId}.mp3`;
@@ -46,7 +44,6 @@ async function download_video_url(videoUrl: string) {
       fileName,
       videoId,
       title: info.videoDetails.title,
-      alreadyExists: false,
     };
   } catch (error: any) {
     console.error('下载过程中发生错误:', error);
@@ -64,11 +61,9 @@ export async function POST(request: Request) {
       fileName: string;
       videoId: string;
       title: string;
-      alreadyExists: boolean;
     };
 
     const groq = new Groq();
-
     const transcription = await groq.audio.transcriptions.create({
       file: createReadStream(data.filePath),
       model: 'whisper-large-v3-turbo',
@@ -76,37 +71,17 @@ export async function POST(request: Request) {
       language: 'es',
       temperature: 0.0,
     });
-    
-    const tr_download_dir = path.join(process.cwd(), 'tmp');
 
-    const origianlFileName = data.fileName;
-    const transcriptionFileName = origianlFileName.replace('.mp3', '.txt');
-    const transcriptionFilePath = path.join(tr_download_dir, transcriptionFileName);
-
-    
-    
-    // 创建写流并将转录文本写入文件
-    const fileStream = createWriteStream(transcriptionFilePath);
-    fileStream.write(transcription.text);
-    fileStream.end();
-    
-    // 等待文件写入完成
-    await new Promise((resolve, reject) => {
-      fileStream.on('finish', resolve);
-      fileStream.on('error', reject);
-    });
-
-    const origianlFilePath = path.join(process.cwd(), 'downloads', origianlFileName);
-    if (existsSync(origianlFilePath)) {
-      unlinkSync(origianlFilePath);
-      console.log(`已删除文件: ${origianlFilePath}`);
-    } else {
-      console.log('文件不存在:', origianlFilePath);
+    // delete audio file
+    const FileName = data.fileName;
+    const FilePath = path.join(DOWNLOAD_DIR, FileName);
+    if (existsSync(FilePath)) {
+      unlinkSync(FilePath);
     }
 
     return NextResponse.json({
       success: true,
-      transcriptionFilePath: transcriptionFilePath,
+      transcription: transcription.text,
     });
   } catch (error) {
     console.error('Error processing YouTube link:', error);
