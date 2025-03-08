@@ -198,7 +198,7 @@ function PureMultimodalInput({
   //New Function
   const handleVideoUrlSubmit = useCallback(async () => {
     if (videoUrl.trim() === "") {
-      toast.error("Please enter a valid YouTube link.");
+      toast.error("Please enter a valid VideoUrl link.");
       return;
     }
 
@@ -212,14 +212,15 @@ function PureMultimodalInput({
 
       if (!response.ok) {
         const errorData = await response.json();
-        toast.error(`Error processing YouTube link: ${errorData.error || response.statusText}`);
+        toast.error(`Error processing VideoUrl link: ${errorData.error || response.statusText}`);
         return;
       }
-      const data = await response.json();
+      const { transcriptionFilePath }: {transcriptionFilePath: string} = await response.json();
       // Handle the response from the server (e.g., update UI)
-      console.log('YouTube link processed successfully:', data);
+      console.log('VideoUrl link processed successfully:', transcriptionFilePath);
+      toast.success("Video transcription completed");
     } catch (error) {
-      toast.error(`Error processing YouTube link: ${error}`);
+      toast.error(`Error processing VideoUrl link: ${error}`);
     }
   }, [videoUrl]);
 
@@ -332,7 +333,8 @@ function PureAttachmentsButton({
       disabled={isLoading}
       variant="ghost"
     >
-      <PaperclipIcon size={14} />
+      {/* <PaperclipIcon size={14} /> */}
+      🗂️
     </Button>
   );
 }
@@ -404,20 +406,20 @@ function PureUploadVideoButton({
   setvideoUrl: (value: string) => void;
   handleVideoUrlSubmit: () => Promise<void>;
 }) {
-  const [showYoutubeInput, setShowYoutubeInput] = useState(false);
+  const [showVideoUrlInput, setShowVideoUrlInput] = useState(false);
 
   return (
     <>
       <Button
         type="button"
         className="rounded-md rounded-bl-lg p-[7px] h-fit dark:border-zinc-700 hover:dark:bg-zinc-900 hover:bg-zinc-200"
-        onClick={() => setShowYoutubeInput(!showYoutubeInput)}
+        onClick={() => setShowVideoUrlInput(!showVideoUrlInput)}
         disabled={isLoading}
         variant="ghost"
       >
         🎬
       </Button>
-      {showYoutubeInput && (
+      {showVideoUrlInput && (
         <div className="flex gap-2">
           <Input
             type="text"
@@ -431,7 +433,7 @@ function PureUploadVideoButton({
             className="rounded-md rounded-bl-lg p-[7px] h-fit dark:border-zinc-700 hover:dark:bg-zinc-900 hover:bg-zinc-200"
             onClick={async () => {
               await handleVideoUrlSubmit();
-              setShowYoutubeInput(false); // Hide after upload
+              setShowVideoUrlInput(false); // Hide after upload
               setvideoUrl('');
             }}
             variant="ghost"
