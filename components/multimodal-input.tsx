@@ -437,7 +437,7 @@ function PureUploadVideoButton({
             placeholder="Enter video link"
             value={videoUrl}
             onChange={(e) => setvideoUrl(e.target.value)}
-            className="rounded-md rounded-bl-lg p-[7px] h-fit dark:border-zinc-700 hover:dark:bg-zinc-900 hover:bg-zinc-200"
+            className="rounded-md rounded-bl-lg p-[7px] h-fit dark:border-zinc-700 hover:dark:bg-zinc-900 hover:bg-zinc-200 w-[200px] sm:w-[250px] md:w-[300px] lg:w-[400px]"
           />
           <Button
             type="button"
