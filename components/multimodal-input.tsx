@@ -215,7 +215,7 @@ function PureMultimodalInput({
         toast.error(`Error processing VideoUrl link: ${errorData.error || response.statusText}`);
         return;
       }
-      const { transcription }: {transcription: string} = await response.json();
+      const { transcription }: { transcription: string } = await response.json();
       // Handle the response from the server (e.g., update UI)
       const blob = new Blob([transcription], { type: 'text/plain' });
       const file = new File([blob], 'transcription.txt', { type: 'text/plain' }); // 创建 File 对象
@@ -337,6 +337,7 @@ function PureAttachmentsButton({
   return (
     <Button
       className="rounded-md rounded-bl-lg p-[7px] h-fit dark:border-zinc-700 hover:dark:bg-zinc-900 hover:bg-zinc-200"
+      style={{ fontSize: '18px' }}
       onClick={(event) => {
         event.preventDefault();
         fileInputRef.current?.click();
@@ -345,7 +346,7 @@ function PureAttachmentsButton({
       variant="ghost"
     >
       {/* <PaperclipIcon size={14} /> */}
-      🗂️
+      🔗
     </Button>
   );
 }
@@ -386,14 +387,16 @@ function PureSendButton({
 }) {
   return (
     <Button
-      className="rounded-full p-1.5 h-fit border dark:border-zinc-600"
+      variant="ghost"
+      className="p-1 h-fit"
+      style={{ fontSize: '18px' }}
       onClick={(event) => {
         event.preventDefault();
         submitForm();
       }}
       disabled={input.length === 0 || uploadQueue.length > 0}
     >
-      <ArrowUpIcon size={14} />
+      ⬆️
     </Button>
   );
 }
@@ -424,6 +427,7 @@ function PureUploadVideoButton({
       <Button
         type="button"
         className="rounded-md rounded-bl-lg p-[7px] h-fit dark:border-zinc-700 hover:dark:bg-zinc-900 hover:bg-zinc-200"
+        style={{ fontSize: '18px' }}
         onClick={() => setShowVideoUrlInput(!showVideoUrlInput)}
         disabled={isLoading}
         variant="ghost"
@@ -434,14 +438,15 @@ function PureUploadVideoButton({
         <div className="flex gap-2">
           <Input
             type="text"
-            placeholder="Enter video link"
+            placeholder="YouTube link"
             value={videoUrl}
             onChange={(e) => setvideoUrl(e.target.value)}
             className="rounded-md rounded-bl-lg p-[7px] h-fit dark:border-zinc-700 hover:dark:bg-zinc-900 hover:bg-zinc-200 w-[150px] sm:w-[150px] md:w-[200px] lg:w-[200px]"
-            />
+          />
           <Button
             type="button"
             className="rounded-md rounded-bl-lg p-[7px] h-fit dark:border-zinc-700 hover:dark:bg-zinc-900 hover:bg-zinc-200"
+            style={{ fontSize: '18px' }}
             onClick={async () => {
               await handleVideoUrlSubmit();
               setShowVideoUrlInput(false); // Hide after upload
@@ -449,7 +454,7 @@ function PureUploadVideoButton({
             }}
             variant="ghost"
           >
-            📤
+            ✔
           </Button>
         </div>
       )}

@@ -73,17 +73,20 @@ export const chatModels: Array<ChatModel> = [
   {
     id: 'gemini-2.0-flash',
     name: 'Quick Q&A',
-    description: 'Get straight to the point for direct questions'
+    // description: 'Get straight to the point for direct questions'
+    description: ''
   },
   {
     id: 'deepseek-v3',
     name: 'Roleplay',
-    description: 'Virtual life scene to practive conversation'
+    // description: 'Virtual life scene to practive conversation'
+    description: ''
   },
   {
     id: 'qwen-qwq-32b',
     name: 'Deep-Dive',
-    description: 'Deep dive into grammar, literature, and linguistics',
+    // description: 'Deep dive into grammar, literature, and linguistics',
+    description: ''
   },
   // {
   //   id: 'learnlm-1.5',

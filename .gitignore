@@ -36,6 +36,7 @@ yarn-error.log*
 .vercel
 .vscode
 .env*.local
+.env.development
 
 downloads/
 tmp/
