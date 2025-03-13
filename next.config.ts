@@ -11,6 +11,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  env: {
+    NEXT_PUBLIC_VERCEL_ENV: process.env.VERCEL 
+      ? process.env.NEXT_PUBLIC_VERCEL_ENV || "production" 
+      : "local",
+  },
 };
 
 export default nextConfig;

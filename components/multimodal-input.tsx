@@ -293,7 +293,7 @@ function PureMultimodalInput({
       <div className="absolute bottom-0 p-2 w-fit flex flex-row justify-start items-center gap-2">
         <AttachmentsButton fileInputRef={fileInputRef} isLoading={isLoading} />
         {/* 如果在本地运行，使用 UploadVideoButton 组件 */}
-        {!process.env.VERCEL && (
+        {process.env.NEXT_PUBLIC_VERCEL_ENV === "local" && (
           <UploadVideoButton
             isLoading={isLoading}
             videoUrl={videoUrl}
