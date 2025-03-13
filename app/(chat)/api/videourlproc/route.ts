@@ -5,8 +5,9 @@ import { createWriteStream, createReadStream, existsSync, unlinkSync } from 'fs'
 import { mkdir } from 'fs/promises';
 import { Groq } from 'groq-sdk';
 
-const DOWNLOAD_DIR = path.join(process.cwd(), 'tmp');
-
+const DOWNLOAD_DIR = process.env.VERCEL
+  ? '/tmp'
+  : path.join(process.cwd(), 'tmp');
 async function download_video_url(videoUrl: string) {
   try {
     if (!ytdl.validateURL(videoUrl)) {
