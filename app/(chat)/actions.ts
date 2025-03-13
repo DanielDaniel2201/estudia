@@ -28,10 +28,10 @@ export async function generateTitleFromUserMessage({
   const { text: title } = await generateText({
     model: myProvider.languageModel('title-model'),
     system: `\n
-    - you will generate a short title based on the first message a user begins a conversation with
-    - ensure it is not more than 80 characters long
-    - the title should be a summary of the user's message
-    - do not use quotes or colons`,
+    - 您将根据用户开始对话的第一条消息生成一个简短的标题
+    - 确保其长度不超过 80 个字符
+    - 标题应为用户消息的摘要
+    - 请勿使用引号或冒号`,
     prompt: JSON.stringify(message),
   });
 

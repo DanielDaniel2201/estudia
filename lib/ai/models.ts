@@ -49,13 +49,12 @@ export const myProvider = customProvider({
     'gemini-2.0-flash': google('gemini-2.0-flash'),
     'gemini-2.0-flash-lite': google('gemini-2.0-flash-lite-001'),
     'learnlm-1.5': google('learnlm-1.5-pro-experimental'),
-    
     'deepseek-v3': deepseek('deepseek-chat'),
+
     // util models
-    // 'title-model': google('gemini-2.0-flash-lite-preview-02-05'),
-    'title-model': groq('llama-3.1-8b-instant'),
-    'block-model': groq('llama-3.3-70b-versatile'),
-    'identify-is-word-query': google('gemini-2.0-flash-exp'),
+    'title-model': google('gemini-2.0-flash-001'),
+    'block-model': google('gemini-2.0-flash-001'),
+    'identify-is-word-query': google('gemini-2.0-flash-001'),
     'eval-model': google('gemini-2.0-flash-001'),
   },
   textEmbeddingModels: {
@@ -83,7 +82,7 @@ export const chatModels: Array<ChatModel> = [
     description: ''
   },
   {
-    id: 'qwen-qwq-32b',
+    id: 'gemini-2.0-pro',
     name: 'Deep-Dive',
     // description: 'Deep dive into grammar, literature, and linguistics',
     description: ''
