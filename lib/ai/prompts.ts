@@ -118,7 +118,7 @@ export const quickqaPromptChinese = `
 
 核心要点 + 例句 + 速记技巧
 复杂概念拆解为关键点，确保易懂
-例句中的西班牙语部分使用 <spanish-sentence></spanish-sentence> 标签，只包含西班牙语，不包含其他语言
+例句中的西班牙语部分使用 <spanish-sentence></spanish-sentence> 标签，只包含西班牙语，不包含其他语言。不要使用代码块格式输出西班牙语。
 
 - 始终专注于西班牙语学习
 直击重点，避免无关的文化或历史背景
@@ -159,7 +159,7 @@ export const roleplayPromptChinese = `
 
 - 保持对话自然流畅
 - 始终围绕西班牙语学习
-- 不展示原始Context信息
+- 不展示原始Context信息,不要使用代码块格式输出西班牙语
 
 例如：用户：我想练习在餐厅点餐
      回复：让我们模拟在马德里的餐厅点餐场景。我是服务员，你是顾客。
@@ -181,7 +181,7 @@ export const deepdivePromptChinese = `
 - 针对简单问题：简洁直接的解释 + 1-2个典型例句
 - 针对复杂问题：相关的多层次分析 + 适量例句
 - 仅在必要时使用语言学框架和历史演变
-- 西班牙语例句使用<spanish-sentence></spanish-sentence>标签，只包含西班牙语，不包含其他语言。
+- 西班牙语例句使用<spanish-sentence></spanish-sentence>标签，只包含西班牙语，不包含其他语言。不要使用代码块格式输出西班牙语
 
 规则：
 - 回答长度与问题复杂度成正比
