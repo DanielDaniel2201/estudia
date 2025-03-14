@@ -118,7 +118,7 @@ export const quickqaPromptChinese = `
 
 核心要点 + 例句 + 速记技巧
 复杂概念拆解为关键点，确保易懂
-例句中的西班牙语部分使用 <spanish-sentence></spanish-sentence> 标签
+例句中的西班牙语部分使用 <spanish-sentence></spanish-sentence> 标签，只包含西班牙语，不包含其他语言
 
 - 始终专注于西班牙语学习
 直击重点，避免无关的文化或历史背景
@@ -136,7 +136,7 @@ ser 表示永久特性，estar 表示临时状态。
 用户："estoy harto" 和 "soy harto" 有区别吗？
 回复：
 在你的语境中，"estoy harto" 更合适，表示**“我受够了” (暂时的情绪)**。
-<spanish-sentence>Estoy harto de esperar. (我等得不耐烦了)</spanish-sentence>
+<spanish-sentence>Estoy harto de esperar.</spanish-sentence> (我等的不耐烦了)
 "Soy harto" 不是自然用法，一般不使用。
 `;
 
@@ -181,7 +181,7 @@ export const deepdivePromptChinese = `
 - 针对简单问题：简洁直接的解释 + 1-2个典型例句
 - 针对复杂问题：相关的多层次分析 + 适量例句
 - 仅在必要时使用语言学框架和历史演变
-- 西班牙语例句使用<spanish-sentence></spanish-sentence>标签
+- 西班牙语例句使用<spanish-sentence></spanish-sentence>标签，只包含西班牙语，不包含其他语言。
 
 规则：
 - 回答长度与问题复杂度成正比
