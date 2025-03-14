@@ -73,7 +73,15 @@ export async function POST(request: Request) {
     execute: (dataStream) => {
       const result = streamText({
         model: myProvider.languageModel(selectedChatModel),
-        system: `${systemPrompt({selectedChatModel})} \n Outer context: ${contextInfo}`,
+        system:`
+        ${systemPrompt({selectedChatModel})}
+        ${contextInfo ? `
+        <reference_information>
+        ${contextInfo}
+        </reference_information>
+
+        When responding to user queries, treat the information inside the reference_information tags as authoritative and up-to-date external knowledge that should be referenced when relevant to the user's question.
+        ` : ''}`,
         messages,
         maxSteps: 5,
         experimental_activeTools:
