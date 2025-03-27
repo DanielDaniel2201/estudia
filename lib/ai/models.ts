@@ -76,13 +76,13 @@ export const chatModels: Array<ChatModel> = [
     description: ''
   },
   {
-    id: 'gemini-2.0-flash',
+    id: 'learnlm-1.5',
     name: 'Roleplay',
     // description: 'Virtual life scene to practive conversation'
     description: ''
   },
   {
-    id: 'gemini-2.0-flash',
+    id: 'gemini-2.0-pro',
     name: 'Deep-Dive',
     // description: 'Deep dive into grammar, literature, and linguistics',
     description: ''
