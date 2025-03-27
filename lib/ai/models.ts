@@ -76,13 +76,13 @@ export const chatModels: Array<ChatModel> = [
     description: ''
   },
   {
-    id: 'deepseek-v3',
+    id: 'gemini-2.0-flash',
     name: 'Roleplay',
     // description: 'Virtual life scene to practive conversation'
     description: ''
   },
   {
-    id: 'gemini-2.0-pro',
+    id: 'gemini-2.0-flash',
     name: 'Deep-Dive',
     // description: 'Deep dive into grammar, literature, and linguistics',
     description: ''

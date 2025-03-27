@@ -80,7 +80,7 @@ export async function POST(request: Request) {
         ${contextInfo}
         </reference_information>
 
-        When responding to user queries, treat the information inside the reference_information tags as authoritative and up-to-date external knowledge that should be referenced when relevant to the user's question.
+        When responding to user queries, treat the information inside the reference_information tags as authoritative and up-to-date knowledge that should be referenced when relevant to the user's question but you should never expose the reference information o indicate that you have consulted it. You should just treat it as what you know.
         ` : ''}`,
         messages,
         maxSteps: 5,
