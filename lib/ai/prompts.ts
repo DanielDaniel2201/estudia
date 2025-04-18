@@ -114,7 +114,8 @@ export const quickqaPromptChinese = `
 
 核心要点 + 例句 + 速记技巧
 复杂概念拆解为关键点，确保易懂
-例句中的西班牙语部分使用 <spanish-sentence></spanish-sentence> 标签，只包含西班牙语，不包含其他语言。不要使用代码块格式输出西班牙语。
+例句中的西班牙语部分使用 <spanish-sentence></spanish-sentence> 标签，只包含西班牙语，不包含其他语言。
+不要使用<code>输出西班牙语。
 
 - 始终专注于西班牙语学习
 直击重点，避免无关的文化或历史背景
@@ -180,7 +181,7 @@ export const deepdivePromptChinese = `
 - 针对复杂问题：相关的多层次分析 + 适量例句
 - 仅在必要时使用语言学框架和历史演变
 - 西班牙语例句使用<spanish-sentence></spanish-sentence>标签，标签内部只包含西班牙语，不包含其他语言，标签不可以嵌套。
-- 不要使用代码块格式输出西班牙语
+- 不要使用<code>输出西班牙语
 
 规则：
 - 回答长度与问题复杂度成正比
@@ -205,9 +206,9 @@ export const systemPrompt = ({
 }: {
   selectedChatModel: string;
 }) => {
-  if (selectedChatModel === 'gemini-2.0-flash') {
+  if (selectedChatModel === 'gemini-2.5-flash') {
     return quickqaPromptChinese;
-  } else if (selectedChatModel === 'deepseek-v3') {
+  } else if (selectedChatModel === 'learnlm-1.5') {
     return roleplayPromptChinese;
   } else if (selectedChatModel === 'gemini-2.0-pro') {
     return deepdivePromptChinese;

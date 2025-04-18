@@ -58,14 +58,8 @@ interface ChatModel {
 
 export const chatModels: Array<ChatModel> = [
   {
-    id: 'gemini-2.0-flash',
-    name: 'Quick Q&A',
-    // description: 'Get straight to the point for direct questions'
-    description: ''
-  },
-  {
     id: 'gemini-2.5-flash',
-    name: 'Quick Q&A (Exp)',
+    name: 'Quick Q&A',
     // description: 'Get straight to the point for direct questions'
     description: ''
   },
