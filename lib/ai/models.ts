@@ -9,7 +9,7 @@ import {
 } from 'ai';
 import { wrap } from 'module';
 
-export const DEFAULT_CHAT_MODEL: string = 'gemini-2.0-flash';
+export const DEFAULT_CHAT_MODEL: string = 'gemini-2.5-flash';
 
 const openrouter = createOpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY
@@ -22,11 +22,7 @@ export const myProvider = customProvider({
       model: deepseek('deepseek-reasoner'),
       middleware: extractReasoningMiddleware({ tagName: 'think' })
     }),
-    'gemini-2.0-flash-thinking-exp': wrapLanguageModel({
-      model: google('gemini-2.0-flash-thinking-exp'),
-      middleware: extractReasoningMiddleware({ tagName: 'think' })
-    }),
-    
+
     // chat models
     'deepseek-v3-openrouter': openrouter('deepseek/deepseek-chat:free'),
     'gemini-2.0-flash-openrouter': openrouter('google/gemini-2.0-flash-exp:free'),
