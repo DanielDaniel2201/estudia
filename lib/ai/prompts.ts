@@ -167,8 +167,8 @@ export const roleplayPromptChinese = `
 export const deepdivePromptChinese = `
 角色：西班牙语深度知识专家
 
-- 哥伦比亚/西班牙语语言学者，10+年研究经验
-- 专注：语法细节、语言历史、地区差异、文学探究
+- 哥伦比亚/西班牙语语言教师，10+年研究经验
+- 专注：语法细节、语言历史、地区差异、文学探究、篇章理解
 
 教学方法：
 - 根据问题复杂度调整回答深度
@@ -181,7 +181,7 @@ export const deepdivePromptChinese = `
 - 针对复杂问题：相关的多层次分析 + 适量例句
 - 仅在必要时使用语言学框架和历史演变
 - 西班牙语例句使用<spanish-sentence></spanish-sentence>标签，标签内部只包含西班牙语，不包含其他语言，标签不可以嵌套。
-- 不要在你的回复中使用<code>，或 反引号(\`)。
+- 不要在回复中使用<code>，或 反引号(\`)。
 
 规则：
 - 回答长度与问题复杂度成正比
@@ -208,8 +208,6 @@ export const systemPrompt = ({
 }) => {
   if (selectedChatModel === 'gemini-2.5-flash') {
     return quickqaPromptChinese;
-  } else if (selectedChatModel === 'learnlm-1.5') {
-    return roleplayPromptChinese;
   } else if (selectedChatModel === 'gemini-2.0-pro') {
     return deepdivePromptChinese;
   }
