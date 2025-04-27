@@ -8,7 +8,7 @@ interface ChatFooterProps {
 const ChatFooter: React.FC<ChatFooterProps> = ({ email }) => {
   return (
     <div className="text-xs text-gray-500 flex flex-col items-center justify-center py-2">
-      <p>AI-generated content may contain inaccuracies.
+      <p>AI-generated content may be inaccurate.
         Contact: {' '}
         <a
           href={`mailto:${email}`}

@@ -12,6 +12,8 @@ import { useSidebar } from './ui/sidebar';
 import { memo } from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import { VisibilityType, VisibilitySelector } from './visibility-selector';
+import { SunMoon } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 function PureChatHeader({
   chatId,
@@ -28,6 +30,7 @@ function PureChatHeader({
   const { open } = useSidebar();
 
   const { width: windowWidth } = useWindowSize();
+  const { setTheme, theme } = useTheme();
 
   return (
     <header className="flex sticky top-0 bg-background py-1.5 items-center px-2 md:px-2 gap-2">
@@ -38,7 +41,7 @@ function PureChatHeader({
           <TooltipTrigger asChild>
             <Button
               variant="outline"
-              className="order-2 md:order-1 md:px-2 px-2 md:h-fit ml-auto md:ml-0"
+              className=" md:px-2 px-2 md:h-fit ml-auto md:ml-0"
               onClick={() => {
                 router.push('/');
                 router.refresh();
@@ -55,9 +58,18 @@ function PureChatHeader({
       {!isReadonly && (
         <ModelSelector
           selectedModelId={selectedModelId}
-          className="order-1 md:order-2"
+        // className="order-1 md:order-2"
         />
       )}
+
+
+      <Button
+        variant="outline"
+        className="md:px-2 px-2 md:h-fit ml-auto md:ml-0"
+        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      >
+        <SunMoon />
+      </Button>
 
       {/* {!isReadonly && (
         <VisibilitySelector
