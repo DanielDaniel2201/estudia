@@ -12,7 +12,7 @@ import { useSidebar } from './ui/sidebar';
 import { memo } from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import { VisibilityType, VisibilitySelector } from './visibility-selector';
-import { SunMoon } from 'lucide-react';
+import { Plus, SunMoon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
 function PureChatHeader({
@@ -41,14 +41,14 @@ function PureChatHeader({
           <TooltipTrigger asChild>
             <Button
               variant="outline"
-              className=" md:px-2 px-2 md:h-fit ml-auto md:ml-0"
+              className=" md:px-2 px-2 md:h-fit"
               onClick={() => {
                 router.push('/');
                 router.refresh();
               }}
             >
-              <PlusIcon />
-              <span className="md:sr-only">New Chat</span>
+              <Plus />
+              {/* <span className="md:sr-only">New Chat</span> */}
             </Button>
           </TooltipTrigger>
           <TooltipContent>New Chat</TooltipContent>
@@ -65,7 +65,7 @@ function PureChatHeader({
 
       <Button
         variant="outline"
-        className="md:px-2 px-2 md:h-fit ml-auto md:ml-0"
+        className="fixed top-2 right-2 z-50  md:h-fit ml-auto md:ml-0"
         onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       >
         <SunMoon />
