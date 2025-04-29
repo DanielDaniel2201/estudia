@@ -24,19 +24,19 @@
 
 @layer base {
     :root {
-      --background: 204 93.8% 93.7%;
+      --background: 33.3 100% 98.5%;
       --foreground: 226.2 57% 21%;
       --card: 0 0% 100%;
       --card-foreground: 226.2 57% 21%;
-      --popover: 204 100% 97.1%;
+      --popover: 33.3 100% 98.5%;
       --popover-foreground: 226.2 57% 21%;
-      --primary: 211.7 96.4% 78.4%;
+      --primary: 33.3 100% 98.5%;
       --primary-foreground: 240 5% 15%;
       --secondary: 210 40% 96.1%;
       --secondary-foreground: 222.2 47.4% 11.2%;
-      --muted: 204 93.8% 93.7%;
-      --muted-foreground: 226.2 57% 21%;
-      --accent: 210 40% 96.1%;
+      --muted: 33.3 100% 96.5%;
+      --muted-foreground: 215.4 16.3% 46.9%;
+      --accent: 33.3 100% 96.5%;
       --accent-foreground: 222.2 47.4% 11.2%;
       --destructive: 0 84.2% 60.2%;
       --destructive-foreground: 210 40% 98%;
@@ -52,7 +52,7 @@
   
       /* 新增的侧边栏颜色 */
       --sidebar-background: var(--muted); /* 使用 muted 作为侧边栏背景 */
-      --sidebar-foreground: var(--muted-foreground); /* 使用 muted-foreground 作为侧边栏文字颜色 */
+      --sidebar-foreground: var(--foreground); /* 使用 muted-foreground 作为侧边栏文字颜色 */
       --sidebar-primary: var(--primary); /* 使用 primary 作为侧边栏主色 */
       --sidebar-primary-foreground: var(--primary-foreground); /* 使用 primary-foreground 作为侧边栏主色文字颜色 */
       --sidebar-accent: var(--accent); /* 使用 accent 作为侧边栏强调色 */

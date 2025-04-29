@@ -371,7 +371,7 @@ function PureStopButton({
 }) {
   return (
     <Button
-      className="rounded-full p-1.5 h-fit border dark:border-zinc-600"
+      className="rounded-full p-1.5 h-fit border dark:border-zinc-600 bg-muted"
       onClick={(event) => {
         event.preventDefault();
         stop();
