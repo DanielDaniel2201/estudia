@@ -91,6 +91,7 @@ export function Chat({
           {!isReadonly && (
             <MultimodalInput
               chatId={id}
+              selectedModelId={selectedChatModel}
               input={input}
               setInput={setInput}
               handleSubmit={handleSubmit}

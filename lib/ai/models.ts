@@ -42,12 +42,12 @@ interface ChatModel {
 export const chatModels: Array<ChatModel> = [
   {
     id: 'gemini-2.5-flash',
-    name: 'Quick Lookup',
+    name: 'Búsqueda Rápida',
     description: ''
   },
   {
     id: 'gemini-2.0-pro',
-    name: 'Deep Dive',
+    name: 'Análisis Profundo',
     description: ''
   },
 ];

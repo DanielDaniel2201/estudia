@@ -30,9 +30,11 @@ import { Textarea } from './ui/textarea';
 import equal from 'fast-deep-equal';
 import { Input } from './ui/input';
 import { Clapperboard, MoveUp, Paperclip } from 'lucide-react';
+import { ModelSelector } from './model-selector';
 
 function PureMultimodalInput({
   chatId,
+  selectedModelId,
   input,
   setInput,
   isLoading,
@@ -46,6 +48,7 @@ function PureMultimodalInput({
   className,
 }: {
   chatId: string;
+  selectedModelId: string;
   input: string;
   setInput: (value: string) => void;
   isLoading: boolean;
@@ -269,7 +272,7 @@ function PureMultimodalInput({
 
       <Textarea
         ref={textareaRef}
-        placeholder="Send a question here..."
+        placeholder="Haz tu pregunta aquí"
         value={input}
         onChange={handleInput}
         className={cx(
@@ -302,6 +305,9 @@ function PureMultimodalInput({
             handleVideoUrlSubmit={handleVideoUrlSubmit}
           />
         )}
+        <ModelSelector selectedModelId={selectedModelId}
+        // className="order-1 md:order-2"
+        />
       </div>
 
       <div className="absolute bottom-0 right-0 p-2 w-fit flex flex-row justify-end">
@@ -325,7 +331,7 @@ export const MultimodalInput = memo(
     if (prevProps.input !== nextProps.input) return false;
     if (prevProps.isLoading !== nextProps.isLoading) return false;
     if (!equal(prevProps.attachments, nextProps.attachments)) return false;
-
+    if (prevProps.selectedModelId !== nextProps.selectedModelId) return false;
     return true;
   },
 );
