@@ -42,7 +42,7 @@ export function ModelSelector({
       >
         <Button
           variant="outline"
-          className="md:px-2 md:h-[34px] bg-muted hover:bg-accent hover:text-accent-foreground"
+          className="md:px-2 md:h-[34px] bg-muted border-muted hover:bg-[hsl(var(--button-hover-background))]"
         >
           {selectedChatModel?.name}
           <ChevronUp />

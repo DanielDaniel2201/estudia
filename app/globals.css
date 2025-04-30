@@ -49,6 +49,7 @@
       --chart-3: 197 37% 24%;
       --chart-4: 43 74% 66%;
       --chart-5: 27 87% 67%;
+      --button-hover-background: 20 5.9% 90%;
   
       /* 新增的侧边栏颜色 */
       --sidebar-background: var(--muted); /* 使用 muted 作为侧边栏背景 */
@@ -78,7 +79,7 @@
       --accent-foreground: 210 40% 98%;
       --destructive: 0 62.8% 30.6%;
       --destructive-foreground: 210 40% 98%;
-      --border: 217.2 32.6% 17.5%;
+      --border: var(--background);
       --input: 217.2 32.6% 17.5%;
       --ring: 224.3 76.3% 48%;
       --chart-1: 220 70% 50%;

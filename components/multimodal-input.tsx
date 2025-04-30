@@ -276,7 +276,7 @@ function PureMultimodalInput({
         value={input}
         onChange={handleInput}
         className={cx(
-          'focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 min-h-[24px] max-h-[calc(75dvh)] overflow-hidden resize-none rounded-2xl !text-base bg-muted pb-10 dark:border-zinc-700 shadow-md',  // 添加了shadow-md
+          'focus:outline-none focus:visible min-h-[24px] max-h-[calc(75dvh)] overflow-hidden resize-none rounded-2xl !text-base bg-muted pb-10 dark:border-zinc-700 shadow-md',  // 添加了shadow-md
           className,
         )}
         rows={2}
@@ -295,6 +295,7 @@ function PureMultimodalInput({
       />
 
       <div className="absolute bottom-0 p-2 w-fit flex flex-row justify-start items-center gap-2">
+        <ModelSelector selectedModelId={selectedModelId} />
         <AttachmentsButton fileInputRef={fileInputRef} isLoading={isLoading} />
         {/* 如果在本地运行，使用 UploadVideoButton 组件 */}
         {process.env.NEXT_PUBLIC_VERCEL_ENV === "local" && (
@@ -305,9 +306,6 @@ function PureMultimodalInput({
             handleVideoUrlSubmit={handleVideoUrlSubmit}
           />
         )}
-        <ModelSelector selectedModelId={selectedModelId}
-        // className="order-1 md:order-2"
-        />
       </div>
 
       <div className="absolute bottom-0 right-0 p-2 w-fit flex flex-row justify-end">
