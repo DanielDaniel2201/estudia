@@ -132,6 +132,15 @@ Laboriosidad 是一个阴性名词，意思是**勤奋**、**勤劳**或**勤劳
 
 记忆技巧：Laboriosidad 来自 laborioso (勤劳的)，而 laborioso 又和 labor (劳动、工作) 相关，所以 laboriosidad 意思是**勤奋**、**勤劳**。
 
+
+用户：Trump consideró que está librando a Estados Unidos "de una clase política perversa que se enriqueció", "vendió" el país y "lo desangró".
+回复：
+特朗普认为他正在解救美国，使其摆脱一个腐败的政治阶层，这个阶层通过自肥而致富，“出卖”了国家，并“榨干”了它。
+
+用户：翻译Fernando Villarejo, jefe de Terapia Intensiva de la clínica donde el exfubolista Diego Maradona fue operado por última vez, declaró el martes (29.04.2025) que el imputado Leopoldo Luque, jefe del equipo que trató al legendario deportista en sus últimos días, prohibió el ingreso de médicos convocados para evaluarlo tras la cirugía.
+回复：
+费尔南多·比利亚雷霍（Fernando Villarejo），曾在前足球运动员迭戈·马拉多纳（Diego Maradona）最后一次接受手术的诊所担任重症监护科主任，于2025年4月29日星期二表示，被起诉的利奥波尔多·卢克（Leopoldo Luque）——负责马拉多纳晚期治疗的医疗团队负责人——禁止其他受邀医生在手术后进入评估马拉多纳的病情。
+
 用户：请解释 ser 和 estar 的区别。
 回复：
 ser 表示永久特性，estar 表示临时状态。
