@@ -15,6 +15,7 @@ import {
 } from './ui/tooltip';
 import { memo } from 'react';
 import equal from 'fast-deep-equal';
+import { FilterIcon } from 'lucide-react';
 
 export function PureMessageActions({
   chatId,
@@ -156,6 +157,17 @@ export function PureMessageActions({
             </Button>
           </TooltipTrigger>
           <TooltipContent>Downvote Response</TooltipContent>
+        </Tooltip>
+               <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              className="py-1 px-2 h-fit text-muted-foreground !pointer-events-auto"
+              variant="outline"
+            >
+            <FilterIcon />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Summarize</TooltipContent>
         </Tooltip>
       </div>
     </TooltipProvider>

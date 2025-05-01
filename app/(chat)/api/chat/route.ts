@@ -39,35 +39,39 @@ export async function POST(request: Request) {
   }: { id: string; messages: Array<Message>; selectedChatModel: string } =
     await request.json();
   const session = await auth();
-  
+  console.log("checkpoint 1");
   if (!session || !session.user || !session.user.id) {
     return new Response('Unauthorized', { status: 401 });
   }
 
   const userMessage = getMostRecentUserMessage(messages);
+  console.log("checkpoint 2");
 
   if (!userMessage) {
     return new Response('No user message found', { status: 400 });
   }
 
   const chat = await getChatById({ id });
+  console.log("checkpoint 3");
 
   if (!chat) {
     const title = await generateTitleFromUserMessage({ message: userMessage });
     await saveChat({ id, userId: session.user.id, title });
   }
 
-  const contextInfo = await identifyIsWordQuery({ message: userMessage });
+  // const contextInfo = await identifyIsWordQuery({ message: userMessage });
   
+  console.log("checkpoint 4");
   await saveMessages({
     messages: [{ ...userMessage, createdAt: new Date(), chatId: id }],
   });
 
-  const cacheMsgCnt = await UserMessage.add(session.user.id, userMessage.content);
-  if (cacheMsgCnt >= evalMsgCnt) {
-    const userMsgConcat = await UserMessage.getAll(session.user.id);
-    userEval(session.user.id, userMsgConcat);
-  }
+  // const cacheMsgCnt = await UserMessage.add(session.user.id, userMessage.content);
+  // if (cacheMsgCnt >= evalMsgCnt) {
+  //   const userMsgConcat = await UserMessage.getAll(session.user.id);
+  //   userEval(session.user.id, userMsgConcat);
+  // }
+  console.log("checkpoint 5");
 
   return createDataStreamResponse({
     execute: (dataStream) => {
