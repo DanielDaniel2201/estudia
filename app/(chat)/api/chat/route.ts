@@ -39,7 +39,6 @@ export async function POST(request: Request) {
   }: { id: string; messages: Array<Message>; selectedChatModel: string } =
     await request.json();
   const session = await auth();
-  
   if (!session || !session.user || !session.user.id) {
     return new Response('Unauthorized', { status: 401 });
   }
@@ -57,17 +56,17 @@ export async function POST(request: Request) {
     await saveChat({ id, userId: session.user.id, title });
   }
 
-  const contextInfo = await identifyIsWordQuery({ message: userMessage });
+  // const contextInfo = await identifyIsWordQuery({ message: userMessage });
   
   await saveMessages({
     messages: [{ ...userMessage, createdAt: new Date(), chatId: id }],
   });
 
-  const cacheMsgCnt = await UserMessage.add(session.user.id, userMessage.content);
-  if (cacheMsgCnt >= evalMsgCnt) {
-    const userMsgConcat = await UserMessage.getAll(session.user.id);
-    userEval(session.user.id, userMsgConcat);
-  }
+  // const cacheMsgCnt = await UserMessage.add(session.user.id, userMessage.content);
+  // if (cacheMsgCnt >= evalMsgCnt) {
+  //   const userMsgConcat = await UserMessage.getAll(session.user.id);
+  //   userEval(session.user.id, userMsgConcat);
+  // }
 
   return createDataStreamResponse({
     execute: (dataStream) => {

@@ -6,7 +6,7 @@ import {
   wrapLanguageModel,
 } from 'ai';
 
-export const DEFAULT_CHAT_MODEL: string = 'gemini-2.5-flash';
+export const DEFAULT_CHAT_MODEL: string = 'deepseek-v3';
 
 export const myProvider = customProvider({
   languageModels: {
@@ -21,15 +21,15 @@ export const myProvider = customProvider({
     'gemini-2.0-flash': google('gemini-2.0-flash'),
     'gemini-2.0-flash-lite': google('gemini-2.0-flash-lite-001'),
     'gemini-2.5-flash': google('gemini-2.5-flash-preview-04-17'),
-    'learnlm-1.5': google('learnlm-1.5-pro-experimental'),
     
     'deepseek-v3': deepseek('deepseek-chat'),
     
     // util models
-    'title-model': google('gemini-2.0-flash-001'),
-    'block-model': google('gemini-2.0-flash-001'),
-    'identify-is-word-query': google('gemini-2.0-flash-001'),
-    'eval-model': google('gemini-2.0-flash-001'),
+    'title-model': deepseek('deepseek-chat'),
+    'block-model': deepseek('deepseek-chat'),
+    'identify-is-word-query': deepseek('deepseek-chat'),
+    'eval-model': deepseek('deepseek-chat'),
+    'summarize-model': deepseek('deepseek-chat'),
   }
 });
 
@@ -41,13 +41,8 @@ interface ChatModel {
 
 export const chatModels: Array<ChatModel> = [
   {
-    id: 'gemini-2.5-flash',
+    id: 'deepseek-v3',
     name: 'Búsqueda',
-    description: ''
-  },
-  {
-    id: 'gemini-2.0-pro',
-    name: 'Análisis',
     description: ''
   },
 ];

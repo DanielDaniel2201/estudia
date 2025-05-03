@@ -105,7 +105,7 @@ export function Chat({
             />
           )}
         </form>
-        <ContactInfo email='danieldaniel22012201@gmail.com' />
+        {/* <ContactInfo email='danieldaniel22012201@gmail.com' /> */}
       </div>
 
       <Block
