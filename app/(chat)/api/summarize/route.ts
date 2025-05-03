@@ -2,9 +2,7 @@ import { myProvider } from "@/lib/ai/models";
 import { generateText } from "ai";
 
 export async function POST(request: Request) {
-  console.log("generating summary... checkpoint 1");
   const { response, }: {response: string} = await request.json();
-  console.log("response is ->" + response)
   try {
     const result = await generateText({
       model: myProvider.languageModel("summarize-model"),
@@ -46,7 +44,6 @@ export async function POST(request: Request) {
 
     return new Response(result.text );
   } catch (error) {
-    console.error("Summarization error:", error);
     return new Response("Failed to summarize content", {status: 500});
   }
   
