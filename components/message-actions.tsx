@@ -2,6 +2,7 @@ import type { Message } from 'ai';
 import { toast } from 'sonner';
 import { useSWRConfig } from 'swr';
 import { useCopyToClipboard } from 'usehooks-ts';
+import { useState, useRef } from 'react';
 
 import type { Vote } from '@/lib/db/schema';
 
@@ -13,9 +14,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from './ui/tooltip';
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from './ui/popover';
+import { Copy as LucideCopy, FilterIcon } from 'lucide-react';
 import { memo } from 'react';
 import equal from 'fast-deep-equal';
-import { FilterIcon } from 'lucide-react';
 
 export function PureMessageActions({
   chatId,
@@ -30,6 +36,9 @@ export function PureMessageActions({
 }) {
   const { mutate } = useSWRConfig();
   const [_, copyToClipboard] = useCopyToClipboard();
+  const summaryRef = useRef<string>(''); // ✅ 临时缓存摘要
+  const [summary, setSummary] = useState<string>(''); // 用于展示
+  const [loadingSummary, setLoadingSummary] = useState(false);
 
   if (isLoading) return null;
   if (message.role === 'user') return null;
@@ -39,6 +48,7 @@ export function PureMessageActions({
   return (
     <TooltipProvider delayDuration={0}>
       <div className="flex flex-row gap-2">
+        {/* Copy Button */}
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
@@ -55,6 +65,7 @@ export function PureMessageActions({
           <TooltipContent>Copy</TooltipContent>
         </Tooltip>
 
+        {/* Upvote Button */}
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
@@ -107,6 +118,7 @@ export function PureMessageActions({
           <TooltipContent>Upvote Response</TooltipContent>
         </Tooltip>
 
+        {/* Downvote Button */}
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
@@ -158,17 +170,67 @@ export function PureMessageActions({
           </TooltipTrigger>
           <TooltipContent>Downvote Response</TooltipContent>
         </Tooltip>
-               <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              className="py-1 px-2 h-fit text-muted-foreground !pointer-events-auto"
-              variant="outline"
-            >
-            <FilterIcon />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>Summarize</TooltipContent>
-        </Tooltip>
+
+        {/* Summary Button */}
+        <Popover>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <PopoverTrigger asChild>
+                <Button
+                  className="py-1 px-2 h-fit text-muted-foreground"
+                  variant="outline"
+                  onClick={async () => {
+                    // ✅ 缓存检查逻辑
+                    if (summaryRef.current) {
+                      setSummary(summaryRef.current);
+                      return;
+                    }
+
+                    setLoadingSummary(true);
+                    try {
+                      const res = await fetch('/api/summarize', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ response: message.content }),
+                      });
+
+                      const data = await res.text();
+                      summaryRef.current = data;        // ✅ 缓存到 ref
+                      setSummary(data);                 // ✅ 用于展示
+                    } catch (err) {
+                      toast.error('摘要生成失败');
+                    } finally {
+                      setLoadingSummary(false);
+                    }
+                  }}
+                >
+                  <FilterIcon />
+                </Button>
+              </PopoverTrigger>
+            </TooltipTrigger>
+            <TooltipContent>总结内容</TooltipContent>
+          </Tooltip>
+          <PopoverContent className="w-80 text-sm">
+            {loadingSummary ? (
+              <p>正在生成摘要...</p>
+            ) : summary ? (
+              <div className="flex flex-col gap-2">
+                <div className="whitespace-pre-line">{summary}</div>
+                <Button
+                  size="sm"
+                  onClick={() => {
+                    navigator.clipboard.writeText(summary);
+                    toast.success('摘要已复制！');
+                  }}
+                >
+                  <LucideCopy className="size-4 mr-2" /> 复制
+                </Button>
+              </div>
+            ) : (
+              <p>点击按钮生成摘要</p>
+            )}
+          </PopoverContent>
+        </Popover>
       </div>
     </TooltipProvider>
   );
