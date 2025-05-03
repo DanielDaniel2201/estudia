@@ -224,11 +224,11 @@ export const systemPrompt = ({
 }: {
   selectedChatModel: string;
 }) => {
-  // if (selectedChatModel === 'deepseek-v3') {
+  if (selectedChatModel === 'gemini-2.5-flash') {
     return quickqaPromptChinese;
-  // } else if (selectedChatModel === 'gemini-2.0-pro') {
-  //   return deepdivePromptChinese;
-  // }
+  } else if (selectedChatModel === 'gemini-2.0-pro') {
+    return deepdivePromptChinese;
+  }
 };
 
 export const codePrompt = `
