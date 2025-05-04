@@ -16,7 +16,7 @@ export default function UserProfile({ avatar, email, evaluation }: UserProfilePr
         className="absolute top-4 left-4"
         variant="ghost"
       >
-        ← Back
+        ← 返回
       </Button>
       <CardContent className="space-y-6 flex flex-col items-center">
         <Avatar className="size-20 mb-2">
@@ -31,12 +31,12 @@ export default function UserProfile({ avatar, email, evaluation }: UserProfilePr
           </p>
         </div>
       </CardContent>
-      <Button
+      {/* <Button
         className="absolute bottom-4 left-2"
         variant="ghost"
       >
-        ⚙️ settings
-      </Button>
+        ⚙️ 设置
+      </Button> */}
     </Card>
   );
 }

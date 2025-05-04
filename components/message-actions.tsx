@@ -19,7 +19,7 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from './ui/popover';
-import { Copy as LucideCopy, FilterIcon } from 'lucide-react';
+import { Copy as LucideCopy, FilterIcon, WandSparklesIcon } from 'lucide-react';
 import { memo } from 'react';
 import equal from 'fast-deep-equal';
 
@@ -62,7 +62,7 @@ export function PureMessageActions({
               <CopyIcon />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Copy</TooltipContent>
+          <TooltipContent>复制</TooltipContent>
         </Tooltip>
 
         {/* Upvote Button */}
@@ -115,7 +115,7 @@ export function PureMessageActions({
               <ThumbUpIcon />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Upvote Response</TooltipContent>
+          <TooltipContent>喜欢</TooltipContent>
         </Tooltip>
 
         {/* Downvote Button */}
@@ -168,7 +168,7 @@ export function PureMessageActions({
               <ThumbDownIcon />
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Downvote Response</TooltipContent>
+          <TooltipContent>不喜欢</TooltipContent>
         </Tooltip>
 
         {/* Summary Button */}
@@ -204,15 +204,15 @@ export function PureMessageActions({
                     }
                   }}
                 >
-                  <FilterIcon />
+                <WandSparklesIcon/>
                 </Button>
               </PopoverTrigger>
             </TooltipTrigger>
-            <TooltipContent>总结内容</TooltipContent>
+            <TooltipContent>总结笔记</TooltipContent>
           </Tooltip>
           <PopoverContent className="w-80 text-sm">
             {loadingSummary ? (
-              <p>正在生成摘要...</p>
+              <p>正在生成笔记...</p>
             ) : summary ? (
               <div className="flex flex-col gap-2">
                 <div className="whitespace-pre-line">{summary}</div>
@@ -220,14 +220,14 @@ export function PureMessageActions({
                   size="sm"
                   onClick={() => {
                     navigator.clipboard.writeText(summary);
-                    toast.success('摘要已复制！');
+                    toast.success('笔记已复制！');
                   }}
                 >
                   <LucideCopy className="size-4 mr-2" /> 复制
                 </Button>
               </div>
             ) : (
-              <p>点击按钮生成摘要</p>
+              <p>点击按钮生成笔记</p>
             )}
           </PopoverContent>
         </Popover>

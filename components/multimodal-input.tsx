@@ -272,7 +272,7 @@ function PureMultimodalInput({
 
       <Textarea
         ref={textareaRef}
-        placeholder="Haz tu pregunta aquí"
+        placeholder="想问点什么？"
         value={input}
         onChange={handleInput}
         className={cx(

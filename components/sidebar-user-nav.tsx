@@ -61,7 +61,7 @@ export function SidebarUserNav({ user }: { user: User }) {
                   });
                 }}
               >
-                Sign out
+                退出登录
               </button>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -74,7 +74,7 @@ export function SidebarUserNav({ user }: { user: User }) {
                   router.push(`/user/${userId}`);
                 }}
               >
-                Profile
+                主页
               </button>
             </DropdownMenuItem>
           </DropdownMenuContent>
