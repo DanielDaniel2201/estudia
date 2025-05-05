@@ -28,6 +28,7 @@ export async function generateTitleFromUserMessage({
   const { text: title } = await generateText({
     model: myProvider.languageModel('title-model'),
     system: `\n
+    - 用户在询问西班牙语学习相关的问题
     - 您将根据用户开始对话的第一条消息生成一个简短的标题
     - 确保其长度不超过 80 个字符
     - 标题应为用户消息的摘要
