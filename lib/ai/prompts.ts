@@ -160,9 +160,9 @@ export const systemPrompt = ({
 }: {
   selectedChatModel: string;
 }) => {
-  if (selectedChatModel === 'gemini-2.5-flash') {
+  if (selectedChatModel === 'gemini-2.0-flash') {
     return quickqaPromptChinese;
-  } else if (selectedChatModel === 'gemini-2.0-pro') {
+  } else if (selectedChatModel === 'gemini-2.5-flash') {
     return deepdivePromptChinese;
   }
 };
