@@ -262,8 +262,8 @@ export const ThinkingMessage = () => {
 
         <div className="flex flex-col gap-2 w-full">
           <div className="flex flex-col gap-4 text-muted-foreground">
-            Thinking...
-          </div>
+            生成中...
+           </div>
         </div>
       </div>
     </motion.div>

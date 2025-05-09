@@ -6,7 +6,7 @@ import {
   wrapLanguageModel,
 } from 'ai';
 
-export const DEFAULT_CHAT_MODEL: string = 'gemini-2.5-flash';
+export const DEFAULT_CHAT_MODEL: string = 'gemini-2.0-flash';
 
 export const myProvider = customProvider({
   languageModels: {
@@ -41,12 +41,12 @@ interface ChatModel {
 
 export const chatModels: Array<ChatModel> = [
   {
-    id: 'gemini-2.5-flash',
+    id: 'gemini-2.0-flash',
     name: '快问快答',
     description: ''
   },
     {
-    id: 'gemini-2.0-pro',
+    id: 'gemini-2.5-flash',
     name: '深入探讨',
     description: ''
   },
